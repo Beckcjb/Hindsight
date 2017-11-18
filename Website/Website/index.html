@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<title>Hindsight</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="hindsight_style_sheet.css">
+<body id="myPage">
+
+<!-- Navbar -->
+<div class="h_top">
+ <div class="h_bar h_theme-d2 h_left-align">
+  <a class="h_bar-item h_button h_hide-medium h_hide-large h_right h_hover-white h_theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <a href="#" class="h_bar-item h_button h_red h_text-white">Home</a>
+  <a href="#team" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Team</a>
+  <a href="highlevelRequirements.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Documents</a>
+  <a href="scheduleResources.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Schedule</a>
+  <a href="technologies.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Technologies</a>
+  <a href="#" class="h_bar-item h_button h_hide_small h_right h_hover-teal" title="Search"><i class="fa fa-search"></i></a>
+ </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navBar" class="h_bar-block h_theme-d2 h_hide h_hide-large h_hide-medium">
+    <a href="#team" class="h_bar-item h_button" color="h_text-white">Team</a>
+    <a href="highlevelRequirements.html" class="h_bar-item h_button">Documents</a>
+    <a href="scheduleResources.html" class="h_bar-item h_button">Schedule</a>
+	<a href="technologies.html" class="h_bar-item h_button">Technologies</a>
+  </div>
+</div>
+
+<!-- Image Header -->
+<div class="h_display-container h_animate-opacity">
+  <img src="marsImage.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+  <div class="h_container h_display-topright h_margin-bottom h_red">  
+    <button onclick="document.getElementById('id01').style.display='block'" class="h_button h_xlarge h_theme h_hover-dark-grey" title="Hindsight">Hindsight</button>
+  </div>
+</div>
+
+
+<!-- Team Container -->
+<div class="h_container h_padding-64 h_center" id="team">
+<h2>OUR TEAM</h2>
+
+<div class="h_row"><br>
+
+<div class="h_quarter">
+  <img src="adam.jpg" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+  <h3>Adam Paquette</h3>
+  <p>Architect, Coder</p>
+</div>
+
+<div class="h_quarter">
+  <img src="alex.JPG" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+  <h3>Alexanderia Nelson</h3>
+  <p>Release Manager, Coder</p>
+</div>
+
+<div class="h_quarter">
+  <img src="charles.jpg" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+  <h3>Charles Beck</h3>
+  <p>Recorder, Coder</p>
+</div>
+
+<div class="h_quarter">
+  <img src="hunter.png" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+  <h3>Hunter Rainen</h3>
+  <p>Team Lead, Coder</p>
+</div>
+
+
+
+</div>
+</div>
+
+<!-- Work Row -->
+<div class="h_row-padding h_padding-64 h_theme-l1" id="work">
+
+<div class="h_container">
+<h2>Project Description</h2>
+<p style="text-indent: 40px">	Our sponsor for this project, the Jet Propulsion Laboratory (JPL) at the California Institute of Technology, is developing a new rover for a mission to Mars in 2020. This rover will be exploring various regions on the martian surface searching for evidence that Mars may have had, or still has microbial life on them. To do this, the rover will be using a suite of tools including an onboard drill with a set of drill bits to take measurements of the soil/rock and potentially collect samples from the martian surface. 
+	However, the process for analyzing these tools is cumbersome and tedious.</p> 
+<p style="text-indent: 40px">   Currently, the team at JPL creates a martian like atmosphere for testing their tools. This means that some tests need to be done in a pressurized environment that mimics the martian atmosphere. In other words tools are placed in a small enclosed (vacuum chamber) environment that has been pressurized to be like the atmosphere on mars. The team at JPL has to then depressurize the chamber to examine the results of each test, then pressurize the chamber again when they want to get more test data. This is a time consuming process that the team could otherwise be spending on running more tests and getting more data. The team also has to review and analyze each of the tests manually. Thus, the analysis of the equipment tests are subject to both human error, and human bias for what looks more “correct”.
+	</p>
+<p style="text-indent: 40px">	There is another problem, when the suite of tools the rover has wants to analyze one of the holes the drill made, the bottom face of the abrasion is obscured by dust from the drilling. The team at JPL solves this by blowing a puff of air into the hole to remove the dust from the abrasion. Testing the effectiveness of this gas dust removal tool takes time for the above mentioned reasons. 
+	To assist JPL in the testing process of the gas dust removal tool, Team Hindsight will be building JPL an application to automatically analyze pictures of the holes made by the drill. 
+<p style="text-indent: 60px"> Analysis of the pictures will include:</p>
+<p style="text-indent: 60px"> Area measurements of the hole</p>
+<p style="text-indent: 60px"> Explicit identification and indication of dust free zones
+and metadata on the effectiveness of the device</p>
+<p style="text-indent: 40px">	Ideally, this application will be able to detect the dust free zones using various computer vision algorithms. Then use the computed dust free zone and other information from the camera, like position, drill bit used, and rock type, to produce more specific metadata on the effectiveness of the dust removal tool.
+	Being able to do this analysis automatically will save the team at JPL an enormous amount of time and money. The application will allow them to run multiple tests on their drilling equipment in a single vacuum chamber pump down. It will also give the team a standard metric when testing the dust removal tool for effectiveness.
+</p>
+</div>
+
+<div class="h_quarter">
+<div class="h_card-2 h_white">
+  <img src="ionaBrockie.png" style="width:69">
+  <div class="h_container">
+  <h3>Client</h3>
+  <h4>Iona Brockie</h4>
+  <p>NASA/JPL-Caltech</p>
+  <p>Mars 2020 MSL</p>
+  <a href = "https://www.jpl.nasa.gov/">JPL Website</a>
+  </div>
+  </div>
+</div>
+
+<div class="h_twothird">
+<div class="h_card-2 h_white">
+  <img src="hole.jpg" style="width:30%">
+  <div class="h_container">
+  <h3>Viable Product</h3>
+  <h4>The following are the requirements for the project:</h4>
+  <p> - Analyze immage for dust free areas.</p>
+  <p> - Mark each area clear of dust.</p>
+  <p> - Distinguish one rock type.</p>
+  <p> - Adjust marked areas based off user input.</p>
+  </div>
+  </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer class="h_container h_padding-32 h_theme-d1 h_center">
+  <h4>Thank you</h4>
+
+</footer>
+</body>
+</html>
