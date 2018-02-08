@@ -79,7 +79,7 @@ class Image:
             if len(analyzed_image) == 0:
                 analyzed_image = line
             else:
-                full_image = np.concatenate((analyzed_image, line), axis = 0)
+                analyzed_image= np.concatenate((analyzed_image, line), axis = 0)
             line = []
         self.image_data['analyzed_image'] = analyzed_image
 
