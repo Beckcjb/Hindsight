@@ -18,4 +18,4 @@ class Control:
         self.dataframe = pd.concat([self.dataframe, new_pair], ignore_index=True)
 
     def apply_func(self, func, *args, **kwargs):
-        self.dataframe.apply(func, axis = 1, *args, **kwargs)
+        self.dataframe.apply(func, *args, axis = 1, **kwargs)

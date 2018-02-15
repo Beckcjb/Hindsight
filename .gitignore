@@ -62,7 +62,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-
 # PyBuilder
 target/
 
@@ -73,4 +72,3 @@ target/
 .csv
 .png
 .SAV
-
