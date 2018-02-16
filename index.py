@@ -1,5 +1,5 @@
-# Team Hindsight: Image Analysis Tool
-# Date: December 2017
+# Team Hindsight: Image Analysis Tool Graphical User Interface
+# Date: February 2017
 # Team Members: Beck, Charels
 #				Nelson, Alexanderia
 #				Pacquett, Adam 
@@ -19,12 +19,7 @@
 # 			to select a folder that will be analyzed. After the user selects the folder
 #			they will then be directed to another window that is the main portion of the 
 #			program. Here the user can run the images through the analyzer and the program
-#			will display the images in order of 'Before'->'After'->'Analyzed'. In the top middle
-#			of the window, the file path in use is displayed and can be changed with the 'Change File'
-#			button. Once the user is satisfied with the file selected they can press the 'Run' button
-#			and this will pass the images trough our analysis processes. The 'Save' button is used to store
-#			the results of the program for later use. The user can open the source code and alter 
-#			what the image processing methods are looking for by pressing the 'Alter Parameters' button. 
+#			will display the images in order of 'Before'->'After'->'Analyzed'. 
 #==========================================================================================================
 # Includes
 #include "stdafx.h"
@@ -74,7 +69,6 @@ class Window():
 		file_names = [20]
 		self.files = askopenfilenames(title="Select files")
 		self.file_names = self.files
-		print(self.file_names[0])
 		return self.entered.set(self.files)
 	#==========================================
 	
@@ -83,6 +77,7 @@ class Window():
 		self.fh = self.file_names
 		analysis = tkinter.Toplevel(root)
 		new = AnalysisWindow(analysis, self.fh)# pass file handle to new window
+		self.home.withdraw()
 		
 	#==========================================
 		
@@ -90,7 +85,7 @@ class Window():
 ''' AnalysisWindow: This window is where the main section of the program is carrried out. Here we will us the
 					path of the previously selected folder and apply our analysis on each image in the folder
 					that is an after image of dust removal.'''
-class AnalysisWindow(Window):
+class AnalysisWindow():
 	def __init__(self, analysis, files):
 	# Set up analysis window
 		self.analysis = analysis
@@ -107,7 +102,7 @@ class AnalysisWindow(Window):
 		changeFileButton = Button(analysis,width=20, text="Change File",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
 							
-		runButton   = Button(analysis,width=20,text="Complete Run",
+		runButton   	 = Button(analysis,width=20,text="Complete Run",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runFullAnalysis) # run image analysis
 							
 		colorSegButton   = Button(analysis,width=20,text="Color Segmenation",
@@ -119,10 +114,10 @@ class AnalysisWindow(Window):
 		imageSubButton   = Button(analysis,width=20,text="Image Subtraction",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runImageSub) # run image analysis
 							
-		saveButton  = Button(analysis,width=20,text="Save Result",
+		saveButton  	 = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.saveImage)# save results
 							
-		alterButton = Button(analysis,width=20,text="Alter Parameters",
+		alterButton 	 = Button(analysis,width=20,text="Alter Parameters",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.create_window)# change parameters
 							
 		fLabel.grid(row=0, column=1, padx=5, pady=5)
@@ -166,8 +161,10 @@ class AnalysisWindow(Window):
 		file_names = [20]
 		self.files = askopenfilenames(title="Select files")
 		self.file_names = self.files
-		print(self.file_names[0])
-		return self.entered.set(self.files)
+		self.analysis.destroy()
+		analysis = tkinter.Toplevel(root)
+		new = AnalysisWindow(analysis, self.file_names)# pass file handle to new window
+		
 	def create_window(self):
 		parameters = tkinter.Toplevel(root)
 		new = ParametersWindow(parameters)# pass file handle to new window
@@ -177,7 +174,7 @@ class AnalysisWindow(Window):
 '''ParametersWindow: This window handles the input from the changes to our thresholds 
 					 that the user defines '''
 					 
-class ParametersWindow(Window):
+class ParametersWindow():
 
 	def __init__(self, parameters, ):
 		self.parameters = parameters
@@ -196,3 +193,4 @@ class ParametersWindow(Window):
 root = tkinter.Tk()		
 index = Window(root)
 root.mainloop()
+
