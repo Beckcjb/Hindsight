@@ -98,6 +98,10 @@ class AnalysisWindow():
 		analysis.geometry("800x300")
 		analysis.wm_iconbitmap("logo.ico")
 		
+		self.threshold_1 = DoubleVar()
+		self.threshold_2 = DoubleVar()
+		self.threshold_3 = DoubleVar()
+		
 		# Set up Labels and Buttons
 		self.runType = 0
 		self.file_names = [20]
@@ -133,19 +137,22 @@ class AnalysisWindow():
 		colorSegButton.grid(row=4, column=0,padx=5,pady=5)
 		heatMapButton.grid(row=5, column=0,padx=5,pady=5)
 		imageSubButton.grid(row=6, column=0,padx=5,pady=5)
-		alterButton.grid(row=3, column=2,padx=5,pady=5)
 			
 		self.rockType = StringVar(analysis)
 		
 		self.rockType.set("Rock-E") # default value
-
-		
-		saveButton  = Button(analysis,width=20,text="Save Result",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save selcetions
 							
 		self.rockSelect = OptionMenu(analysis, self.rockType, "Rock-E", "Rock-B", "Rock-C", command=self.func)
-		self.rockSelect.grid(row=0, column=2, padx=5, pady=5)
+		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
 		
+		thresh_1 = Scale(analysis, variable = self.threshold_1, from_=0.0, to=255, orient = HORIZONTAL)
+		thresh_2 = Scale(analysis, variable = self.threshold_2, from_=0.0, to=255, orient = HORIZONTAL)
+		thresh_3 = Scale(analysis, variable = self.threshold_3, from_=0.0, to=255, orient = HORIZONTAL)
+
+		
+		thresh_1.grid(row =4, column =2, pady=5, padx=5)
+		thresh_2.grid(row =5, column =2, pady=5, padx=5)
+		thresh_3.grid(row =6, column =2, pady=5, padx=5)
 		
 	#======================================
 	# Function to return rocktype
@@ -156,26 +163,31 @@ class AnalysisWindow():
 	# Run complete analysis
 	def runFullAnalysis(self):
 		self.runType = 0
-		configData = Config(self.runType, self.file_names, self.rockType, 100, 75, 5)
+		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
+		print(configData.returnParams(1))
 		
 	#HeatMap
 	def runHeatMap(self):
 		self.runType = 1
+		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
 		print("Hello")
 	
 	#Color Segmentation
 	def runColorSeg(self):
 		self.runType = 2
+		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
 		print("Hello")
 	
 	#Image Subtraction
 	def runImageSub(self):
 		self.runType = 3
+		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
 		print("Hello")
 
 	#Save image set
 	def saveImage(self):
 		print("Hello")
+		
 	
 	# File Browser
 	def browseFolder(self):
@@ -188,27 +200,14 @@ class AnalysisWindow():
 		
 	def create_window(self):
 		parameters = tkinter.Toplevel(root)
-		new = ParametersWindow(parameters)# pass file handle to new window
+		new = ParametersWindow(parameters, self.analysis)# pass file handle to new window
 	#==========================================
 	
-	
-'''ParametersWindow: This window handles the input from the changes to our thresholds 
-					 that the user defines '''
-					 
-class ParametersWindow():
 
-	def __init__(self, parameters, ):
-		self.parameters = parameters
-		parameters.title("Hindsight: Change Parameters")
-		parameters.geometry("300x300")
-		parameters.wm_iconbitmap("logo.ico")
 		
-		saveButton  = Button(parameters,width=20,text="Save Result",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.saveSelections)# save selcetions
-		saveButton.grid(row=3, column=3, sticky=E)
-		
-	def saveSelections(self):
-		self.parameters.destroy()
+
+
+
 		
 	
 root = tkinter.Tk()		
