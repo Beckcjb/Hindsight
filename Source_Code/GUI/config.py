@@ -1,9 +1,9 @@
 # Team Hindsight: Class for Configuration with back-end 
 # Date: February 2017
 # Team Members: Beck, Charels
-#				Nelson, Alexanderia
-#				Pacquett, Adam 
-#				Rainen, Hunter 
+#		Nelson, Alexanderia
+#		Pacquett, Adam 
+#		Rainen, Hunter 
 #
 # Client:		Iona Brockie 
 #				NASA/JPL-Caltech
@@ -18,13 +18,12 @@
 #include <math.h>
 
 import sys									# System Variables
-import numpy as np							# Numbered python array
-import cv2									# openCV library
+
 
 
 class Config():
-
-	def __init__(self,runType, files, rockType, parameter_1, parameter_2, parameter_3):
+	
+	def __init__(self, runType, files, rockType, parameter_1, parameter_2, parameter_3):
 		self.runType = runType
 		self.files = files
 		self.rockType = rockType
@@ -43,10 +42,10 @@ class Config():
 		
 	def returnParams(self, parameterNumber):
 		if parameterNumber == 1:
-			return self.parameter_1
+			return str(self.parameter_1.get())
 			
 		elif parameterNumber == 2 :
-			return self.parameter_2
+			return str(self.parameter_2.get())
 		
 		elif parameterNumber == 3 :
-			return self.parameter_3
+			return str(self.parameter_3.get())
