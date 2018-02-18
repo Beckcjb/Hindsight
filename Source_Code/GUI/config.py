@@ -1,9 +1,9 @@
 # Team Hindsight: Class for Configuration with back-end 
 # Date: February 2017
 # Team Members: Beck, Charels
-#		Nelson, Alexanderia
-#		Pacquett, Adam 
-#		Rainen, Hunter 
+#				Nelson, Alexanderia
+#				Pacquett, Adam 
+#				Rainen, Hunter 
 #
 # Client:		Iona Brockie 
 #				NASA/JPL-Caltech
@@ -23,13 +23,14 @@ import sys									# System Variables
 
 class Config():
 	
-	def __init__(self, runType, files, rockType, parameter_1, parameter_2, parameter_3):
+	def __init__(self, runType, basepath, files, rockType):
 		self.runType = runType
+		self.basepath = basepath
 		self.files = files
 		self.rockType = rockType
-		self.parameter_1 = parameter_1
-		self.parameter_2 = parameter_2
-		self.parameter_3 = parameter_3
+		
+	def getBasepath(self):
+		return self.basepath
 	
 	def returnRunType(self):
 		return self.runType
@@ -38,14 +39,21 @@ class Config():
 		return self.files[index]
 		
 	def returnRockType(self):
-		return self.rockType.get()
-		
-	def returnParams(self, parameterNumber):
-		if parameterNumber == 1:
-			return str(self.parameter_1.get())
-			
-		elif parameterNumber == 2 :
-			return str(self.parameter_2.get())
-		
-		elif parameterNumber == 3 :
-			return str(self.parameter_3.get())
+		if self.rockType == "Rock-A":
+			self.rockType = "RockA"
+			return self.rockType
+		elif self.rockType == "Rock-B":
+			self.rockType = "RockB"
+			return self.rockType
+		elif self.rockType == "Rock-C":
+			self.rockType = "RockC"
+			return self.rockType
+		elif self.rockType == "Rock-D":
+			self.rockType = "RockD"
+			return self.rockType
+		elif self.rockType == "Rock-E":
+			self.rockType = "RockE"
+			return self.rockType
+		else:
+			self.rockType = "RockE"
+			return self.rockType
