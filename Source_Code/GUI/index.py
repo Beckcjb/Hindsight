@@ -31,6 +31,7 @@ import config								# configuration for image analysis settings
 from config import Config					
 
 import sys									# System Variables
+import os									
 import numpy as np							# Numbered python array
 import cv2									# openCV library
 
@@ -71,17 +72,18 @@ class Window():
 	
 	# File Browser
 	def browseFolder(self):
-		file_names = [20]
 		self.files = askopenfilenames(title="Select files")
-		self.file_names = self.files
+		self.basepath = os.path.split(self.files[0])[0]		
+		self.file_names = [os.path.split(self.files[i])[1] for i in range(0, len(self.files))]
 		return self.entered.set(self.files)
+
 	#==========================================
 	
 	# Create new window upon press of "Select" button
 	def create_window(self):
 		self.fh = self.file_names
 		analysis = tkinter.Toplevel(root)
-		new = AnalysisWindow(analysis, self.fh)# pass file handle to new window
+		new = AnalysisWindow(analysis, self.fh, self.basepath)# pass file handle to new window
 		self.home.withdraw()
 		
 	#==========================================
@@ -91,16 +93,15 @@ class Window():
 					path of the previously selected folder and apply our analysis on each image in the folder
 					that is an after image of dust removal.'''
 class AnalysisWindow():
-	def __init__(self, analysis, files):
+	def __init__(self, analysis, files, basepath):
 	# Set up analysis window
+		self.basepath = basepath
 		self.analysis = analysis
 		analysis.title("Hindsight: Analysis")
-		analysis.geometry("800x300")
+		analysis.geometry("650x325")
 		analysis.wm_iconbitmap("logo.ico")
 		
-		self.threshold_1 = DoubleVar()
-		self.threshold_2 = DoubleVar()
-		self.threshold_3 = DoubleVar()
+	
 		
 		# Set up Labels and Buttons
 		self.runType = 0
@@ -108,7 +109,8 @@ class AnalysisWindow():
 		self.file_names = files
 		nl = '\n'
 		text = f"Files in use {nl}{nl.join(self.file_names)}"
-		fLabel = Label(analysis, text=text) # display what folder is in use
+		fLabel = Label(analysis, text=text) # display what images are in use
+		blabel = Label(analysis, text="Basepath: {}".format(basepath)) # display basepath to images
 		changeFileButton = Button(analysis,width=20, text="Change File",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
 							
@@ -127,61 +129,52 @@ class AnalysisWindow():
 		saveButton  	 = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.saveImage)# save results
 							
-		alterButton 	 = Button(analysis,width=20,text="Alter Parameters",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.create_window)# change parameters
-							
-		fLabel.grid(row=0, column=1, padx=5, pady=5)
+
+		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
+		blabel.grid(row=0, column=1, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
-		runButton.grid(row=3, column=0, padx=5, pady=5)
-		saveButton.grid(row=3, column=1,padx=5,pady=5)
-		colorSegButton.grid(row=4, column=0,padx=5,pady=5)
-		heatMapButton.grid(row=5, column=0,padx=5,pady=5)
-		imageSubButton.grid(row=6, column=0,padx=5,pady=5)
+		runButton.grid(row=1, column=0, padx=5, pady=5)
+		saveButton.grid(row=5, column=0,padx=5,pady=5)
+		colorSegButton.grid(row=2, column=0,padx=5,pady=5)
+		heatMapButton.grid(row=3, column=0,padx=5,pady=5)
+		imageSubButton.grid(row=4, column=0,padx=5,pady=5)
 			
 		self.rockType = StringVar(analysis)
 		
 		self.rockType.set("Rock-E") # default value
 							
-		self.rockSelect = OptionMenu(analysis, self.rockType, "Rock-E", "Rock-B", "Rock-C", command=self.func)
+		self.rockSelect = OptionMenu(analysis, self.rockType, "Rock-A", "Rock-B", "Rock-C", "Rock-D", "Rock-E", command=self.func)
 		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
 		
-		thresh_1 = Scale(analysis, variable = self.threshold_1, from_=0.0, to=255, orient = HORIZONTAL)
-		thresh_2 = Scale(analysis, variable = self.threshold_2, from_=0.0, to=255, orient = HORIZONTAL)
-		thresh_3 = Scale(analysis, variable = self.threshold_3, from_=0.0, to=255, orient = HORIZONTAL)
-
-		
-		thresh_1.grid(row =4, column =2, pady=5, padx=5)
-		thresh_2.grid(row =5, column =2, pady=5, padx=5)
-		thresh_3.grid(row =6, column =2, pady=5, padx=5)
 		
 	#======================================
 	# Function to return rocktype
-	def func(self):
-		self.rockType = var.get()
+	def func(self, value):
+		self.rockType = value
 		return self.rockType
 	
 	# Run complete analysis
 	def runFullAnalysis(self):
 		self.runType = 0
-		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
-		print(configData.returnParams(1))
+		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
+		print(configData.returnRockType())
 		
 	#HeatMap
 	def runHeatMap(self):
 		self.runType = 1
-		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
+		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
 		print("Hello")
 	
 	#Color Segmentation
 	def runColorSeg(self):
 		self.runType = 2
-		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
+		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
 		print("Hello")
 	
 	#Image Subtraction
 	def runImageSub(self):
 		self.runType = 3
-		configData = Config(self.runType, self.file_names, self.rockType, self.threshold_1, self.threshold_2, self.threshold_3)
+		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
 		print("Hello")
 
 	#Save image set
@@ -191,16 +184,13 @@ class AnalysisWindow():
 	
 	# File Browser
 	def browseFolder(self):
-		file_names = [20]
 		self.files = askopenfilenames(title="Select files")
-		self.file_names = self.files
+		self.basepath = os.path.split(self.files[0])[0]		
+		self.file_names = [os.path.split(self.files[i])[1] for i in range(0, len(self.files))]
 		self.analysis.destroy()
 		analysis = tkinter.Toplevel(root)
-		new = AnalysisWindow(analysis, self.file_names)# pass file handle to new window
-		
-	def create_window(self):
-		parameters = tkinter.Toplevel(root)
-		new = ParametersWindow(parameters, self.analysis)# pass file handle to new window
+		new = AnalysisWindow(analysis, self.file_names, self.basepath)# pass file handle to new window
+
 	#==========================================
 	
 
