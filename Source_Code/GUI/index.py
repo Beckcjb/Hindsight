@@ -104,7 +104,10 @@ class AnalysisWindow():
 	
 		
 		# Set up Labels and Buttons
-		self.runType = 0
+		self.runList = []
+		self.runVar1 = BooleanVar()
+		self.runVar2 = BooleanVar()
+		self.runVar3 = BooleanVar()
 		self.file_names = [20]
 		self.file_names = files
 		nl = '\n'
@@ -114,30 +117,32 @@ class AnalysisWindow():
 		changeFileButton = Button(analysis,width=20, text="Change File",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
 							
-		runButton   	 = Button(analysis,width=20,text="Complete Run",
+		runButton   	 = Button(analysis,width=20,text="Run",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runFullAnalysis) # run image analysis
 							
-		colorSegButton   = Button(analysis,width=20,text="Color Segmenation",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runColorSeg) # run image analysis
+		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
+											onvalue = True, offvalue = False, variable = self.runVar1, anchor = W) # run image analysis
 							
-		heatMapButton    = Button(analysis,width=20,text="Heat Map",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runHeatMap) # run image analysis
+		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",
+											onvalue = True, offvalue = False, variable = self.runVar2, anchor = W) # run image analysis
 							
-		imageSubButton   = Button(analysis,width=20,text="Image Subtraction",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runImageSub) # run image analysis
+		self.imageSubButton   = Checkbutton(analysis,width=20,text="Image Subtraction", 
+											onvalue = True, offvalue = False, variable = self.runVar3,  anchor = W) # run image analysis
 							
 		saveButton  	 = Button(analysis,width=20,text="Save Result",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.saveImage)# save results
+							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save results
 							
 
 		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
 		blabel.grid(row=0, column=1, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
-		runButton.grid(row=1, column=0, padx=5, pady=5)
-		saveButton.grid(row=5, column=0,padx=5,pady=5)
-		colorSegButton.grid(row=2, column=0,padx=5,pady=5)
-		heatMapButton.grid(row=3, column=0,padx=5,pady=5)
-		imageSubButton.grid(row=4, column=0,padx=5,pady=5)
+		runButton.grid(row=2, column=0, padx=5, pady=5)
+		saveButton.grid(row=3, column=0,padx=5,pady=5)
+		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
+		self.imageSubButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		
+
 			
 		self.rockType = StringVar(analysis)
 		
@@ -150,32 +155,57 @@ class AnalysisWindow():
 	#======================================
 	# Function to return rocktype
 	def func(self, value):
+		self.colorSegButton.grid_remove()
+		self.imageSubButton.grid_remove()
+		self.heatMapButton.grid_remove()
+		
+		
 		self.rockType = value
+		if self.rockType == "Rock-A":
+			#self.rockAoptions()
+			pass
+			
+		elif self.rockType == "Rock-B":
+			self.rockBoptions()
+			
+		elif self.rockType == "Rock-C":
+			#self.rockCoptions()
+			pass
+			
+		elif self.rockType == "Rock-D":
+			#self.rockDoptions()
+			pass
+			
+		elif self.rockType == "Rock-E":
+			self.rockEoptions()
+			
+		else:
+			self.rockEoptions()
+		
 		return self.rockType
+	
+		
+	
 	
 	# Run complete analysis
 	def runFullAnalysis(self):
-		self.runType = 0
-		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
-		print(configData.returnRockType())
+		self.runList = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
+		configData = Config(self.runList, self.basepath, self.file_names, self.rockType)
+		print(configData.returnRunList())
 		
-	#HeatMap
-	def runHeatMap(self):
-		self.runType = 1
-		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
-		print("Hello")
+	def rockEoptions(self):
+		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
 	
-	#Color Segmentation
-	def runColorSeg(self):
-		self.runType = 2
-		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
-		print("Hello")
-	
-	#Image Subtraction
-	def runImageSub(self):
-		self.runType = 3
-		configData = Config(self.runType, self.basepath, self.file_names, self.rockType)
-		print("Hello")
+	def rockBoptions(self):
+		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
+
+	def allOptions(self):
+		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
+		self.imageSubButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+
+
 
 	#Save image set
 	def saveImage(self):
