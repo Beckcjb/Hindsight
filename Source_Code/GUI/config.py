@@ -23,8 +23,8 @@ import sys									# System Variables
 
 class Config():
 	
-	def __init__(self, runType, basepath, files, rockType):
-		self.runType = runType
+	def __init__(self, runList, basepath, files, rockType):
+		self.runList = runList
 		self.basepath = basepath
 		self.files = files
 		self.rockType = rockType
@@ -32,8 +32,8 @@ class Config():
 	def getBasepath(self):
 		return self.basepath
 	
-	def returnRunType(self):
-		return self.runType
+	def returnRunList(self):
+		return self.runList
 	
 	def returnFilePaths(self, index):
 		return self.files[index]
