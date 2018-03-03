@@ -45,32 +45,19 @@ class Image:
         self.image_data['sub_mask'] = img_mask
         sub_image.image_data['sub_mask']  = img_mask
 
-    def analyze_mask_pixel(self, mask, buffer, step):
-        means = []
-        x, y = self.xy_extent()
-        for i in range(0, x, step):
-            for j in range(0, y, step):
-                crop = mask[i:(i + buffer), j:(j + buffer)]
-                means.append(np.mean(crop))
-
-        point_values = (means / max(means)) * 100
-        analyzed_image = point_values.reshape(math.ceil(x/step), math.ceil(y/step))
-        self.image_data['analyzed_image'] = analyzed_image
-
-    def analyze_mask_block(self, mask, buffer, step):
+    def extract_circle(self, center, radius):
+        circular_mask = utils.sector_mask(self.shape, center = center,
+                                          radius = radius, angle_range = (0, 360));
+        return 0
+        
+    def analyze_mask(self, mask, buffer):
         line = []
         analyzed_image = []
         x, y = self.xy_extent()
-        for i in range(0, x, step):
-            for j in range(0, y, step):
+        for i in range(0, x, buffer):
+            for j in range(0, y, buffer):
                 crop = mask[i:(i + buffer), j:(j + buffer)]
                 mean = np.mean(crop)
-                if mean > 255 * .7:
-                    mean = 255 * .99
-                elif mean > 255 * .3:
-                    mean = 255 * .5
-                else:
-                    mean = 255 * .01
                 area = np.full((buffer, buffer), mean)
                 if len(line) == 0:
                      line = area
