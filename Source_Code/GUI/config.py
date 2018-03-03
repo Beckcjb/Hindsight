@@ -12,11 +12,6 @@
 #			will allow the pandas dataframe to gather the necessary data and for the other methods to pull
 #			information from the class as well. 
 #==========================================================================================================
-# Includes
-#include "stdafx.h"
-#include <iostream>
-#include <math.h>
-
 import sys									# System Variables
 
 
