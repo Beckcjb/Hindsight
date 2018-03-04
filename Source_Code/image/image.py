@@ -1,4 +1,4 @@
-import sys	
+import sys
 import cv2
 import os
 import math
@@ -33,7 +33,8 @@ class Image:
                 img2 = sub_image['norm_image_data']
             except KeyError:
                 self.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0, 1)
-                sub_image.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0,1)
+                sub_image.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0, 1)
+                
                 img1 = self['norm_image_data']
                 img2 = sub_image['norm_image_data']
         else:

@@ -110,14 +110,14 @@ class AnalysisWindow():
 		changeFileButton = Button(analysis,width=20, text="Change File",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
 
-		sendButton   	 = Button(analysis,width=20,text="Send Configuration",
+		sendButton = Button(analysis,width=20,text="Send Configuration",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.sendConfig) # send image data
 
-		runButton		 = Button(analysis,width=20,text="Run",
+		runButton = Button(analysis,width=20,text="Run",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.run) # run image analysis
 
 
-		self.imageSubButton   = Checkbutton(analysis,width=20,text="Image Subtraction",
+		self.imageSubButton = Checkbutton(analysis,width=20,text="Image Subtraction",
 											onvalue = "subtract", offvalue = None, variable = self.runVar1,  anchor = W) # run image analysis
 
 		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
@@ -127,12 +127,12 @@ class AnalysisWindow():
 											onvalue = "analyze_mask_block", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
 
 
-		saveButton  	 = Button(analysis,width=20,text="Save Result",
+		saveButton = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save results
 
 
-		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
 		blabel.grid(row=0, column=1, padx=5, pady=5)
+		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
 		sendButton.grid(row=2, column=0, padx=5, pady=5)
 		runButton.grid(row=3, column=0, padx=5, pady=5)
@@ -141,17 +141,20 @@ class AnalysisWindow():
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
 		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
 
-		self.heatMapButton.deselect()
 		self.imageSubButton.deselect()
 		self.colorSegButton.deselect()
-
-
+		self.heatMapButton.deselect()
 
 		self.rock_type = StringVar(analysis)
 
 		self.rock_type.set("Rock-E") # default value
 
-		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-A", "Rock-B", "Rock-C", "Rock-D", "Rock-E", command=self.func)
+		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-A",
+															   "Rock-B",
+															   "Rock-C",
+															   "Rock-D",
+															   "Rock-E",
+															   command=self.func)
 		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
 
 
@@ -164,7 +167,6 @@ class AnalysisWindow():
 		self.colorSegButton.grid_remove()
 		self.imageSubButton.grid_remove()
 		self.heatMapButton.grid_remove()
-
 
 		self.rock_type = value
 		if self.rock_type == "Rock-A":
@@ -190,13 +192,13 @@ class AnalysisWindow():
 
 		return self.rockType
 
-	# Run complete analysis
-
+	# Send the configuration to the Controller
 	def sendConfig(self):
 		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
 		configData = Config(run_list, self.basepath, self.file_names, self.rock_type.get())
 		self.controller = Control.from_config(configData)
 
+	# Run the current functions in the controller
 	def run(self):
 		self.controller.run()
 
@@ -211,8 +213,6 @@ class AnalysisWindow():
 		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
 		self.colorSegButton.grid(row=7,  column=0,padx=5,pady=5, sticky=W)
 		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
-
-
 
 	#Save image set
 	def saveImage(self):
