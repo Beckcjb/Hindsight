@@ -1,4 +1,6 @@
+import sys	
 import cv2
+import os
 import math
 import numpy as np
 from ..utils import utils
@@ -8,7 +10,7 @@ class Image:
     def __init__(self, basepath, image, readType = 1):
         self.image_data = {}
         self.image_name = image
-        self.image_data['orig_image_data'] = cv2.imread(basepath + image, readType)
+        self.image_data['orig_image_data'] = cv2.imread(os.path.join(basepath, image), readType)
 
     def __getitem__(self, index):
         return self.image_data[index]
@@ -30,7 +32,10 @@ class Image:
                 img1 = self['norm_image_data']
                 img2 = sub_image['norm_image_data']
             except KeyError:
-                raise KeyError('Images do not have their associated normalized images.')
+                self.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0, 1)
+                sub_image.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0,1)
+                img1 = self['norm_image_data']
+                img2 = sub_image['norm_image_data']
         else:
             img1 = self[data]
             img2 = sub_image[data]
@@ -71,6 +76,7 @@ class Image:
         self.image_data['analyzed_image'] = analyzed_image
 
     def color_segment(self, rock_type):
+        self.convert("orig_image_data", "lab_image_data", cv2.COLOR_BGR2LAB)
         boundaries = utils.map_dust_colors(rock_type)
 
         for (lower, upper) in boundaries:

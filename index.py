@@ -96,11 +96,11 @@ class AnalysisWindow():
 		analysis.wm_iconbitmap("logo.ico")
 
 		# Set up Labels and Buttons
+		self.controller = None
 		self.runList = []
-		self.runVar1 = BooleanVar()
-		self.runVar2 = BooleanVar()
-		self.runVar3 = BooleanVar()
-		self.control = None
+		self.runVar1 = StringVar()
+		self.runVar2 = StringVar()
+		self.runVar3 = StringVar()
 		self.file_names = [20]
 		self.file_names = files
 		nl = '\n'
@@ -110,17 +110,22 @@ class AnalysisWindow():
 		changeFileButton = Button(analysis,width=20, text="Change File",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
 
-		runButton   	 = Button(analysis,width=20,text="Run",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.runFullAnalysis) # run image analysis
+		sendButton   	 = Button(analysis,width=20,text="Send Configuration",
+							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.sendConfig) # send image data
 
-		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
-											onvalue = True, offvalue = False, variable = self.runVar1, anchor = W) # run image analysis
+		runButton		 = Button(analysis,width=20,text="Run",
+							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.run) # run image analysis
 
-		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",
-											onvalue = True, offvalue = False, variable = self.runVar2, anchor = W) # run image analysis
 
 		self.imageSubButton   = Checkbutton(analysis,width=20,text="Image Subtraction",
-											onvalue = True, offvalue = False, variable = self.runVar3,  anchor = W) # run image analysis
+											onvalue = "subtract", offvalue = None, variable = self.runVar1,  anchor = W) # run image analysis
+
+		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
+											onvalue = "color_segment", offvalue = None, variable = self.runVar2, anchor = W) # run image analysis
+
+		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",
+											onvalue = "analyze_mask_block", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
+
 
 		saveButton  	 = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save results
@@ -129,11 +134,16 @@ class AnalysisWindow():
 		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
 		blabel.grid(row=0, column=1, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
-		runButton.grid(row=2, column=0, padx=5, pady=5)
-		saveButton.grid(row=3, column=0,padx=5,pady=5)
-		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
-		self.imageSubButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		sendButton.grid(row=2, column=0, padx=5, pady=5)
+		runButton.grid(row=3, column=0, padx=5, pady=5)
+		saveButton.grid(row=4, column=0,padx=5,pady=5)
+		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
+		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+
+		self.heatMapButton.deselect()
+		self.imageSubButton.deselect()
+		self.colorSegButton.deselect()
 
 
 
@@ -148,6 +158,9 @@ class AnalysisWindow():
 	#======================================
 	# Function to return rocktype
 	def func(self, value):
+		self.heatMapButton.deselect()
+		self.imageSubButton.deselect()
+		self.colorSegButton.deselect()
 		self.colorSegButton.grid_remove()
 		self.imageSubButton.grid_remove()
 		self.heatMapButton.grid_remove()
@@ -178,23 +191,26 @@ class AnalysisWindow():
 		return self.rockType
 
 	# Run complete analysis
-	def runFullAnalysis(self):
+
+	def sendConfig(self):
 		self.runList = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
 		configData = Config(self.runList, self.basepath, self.file_names, self.rockType)
-		self.control = Control.from_config(configData)
+		self.controller = control.Control.from_config(configData)
 
+	def run(self):
+		self.controller.run()
 
 	def rockEoptions(self):
-		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
+		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
 
 	def rockBoptions(self):
-		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
+		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
 
 	def allOptions(self):
-		self.colorSegButton.grid(row=5, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
-		self.imageSubButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
+		self.colorSegButton.grid(row=7,  column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
 
 
 

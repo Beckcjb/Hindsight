@@ -12,10 +12,7 @@
 #			will allow the pandas dataframe to gather the necessary data and for the other methods to pull
 #			information from the class as well.
 #==========================================================================================================
-# Includes
-#include "stdafx.h"
-#include <iostream>
-#include <math.h>
+
 
 import sys									# System Variables
 
@@ -53,5 +50,5 @@ class Config():
 			self.rockType = "RockE"
 			return self.rockType
 		else:
-			self.rockType = "RockE"
-			return self.rockType
+			self.rock_type = "RockE"
+			return self.rock_type
