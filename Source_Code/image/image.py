@@ -1,7 +1,7 @@
 import cv2
 import math
 import numpy as np
-from utils import utils
+from ..utils import utils
 
 class Image:
 
@@ -49,7 +49,7 @@ class Image:
         circular_mask = utils.sector_mask(self.shape, center = center,
                                           radius = radius, angle_range = (0, 360));
         return 0
-        
+
     def analyze_mask(self, mask, buffer):
         line = []
         analyzed_image = []
