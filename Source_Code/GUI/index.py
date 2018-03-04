@@ -21,11 +21,6 @@
 #			program. Here the user can run the images through the analyzer and the program
 #			will display the images in order of 'Before'->'After'->'Analyzed'. 
 #==========================================================================================================
-# Includes
-#include "stdafx.h"
-#include <iostream>
-#include <math.h>
-
 # Imports 
 import config								# configuration for image analysis settings
 from config import Config					
