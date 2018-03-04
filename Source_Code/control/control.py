@@ -4,10 +4,12 @@ import pandas as pd
 import cv2
 import numpy as np
 
-from Source_Code import Config
+from ..config import Config
 from Source_Code import Image
-from Source_Code import subtract_func, color_segment_func, analyze_mask_func
+from .control_funcs import subtract_func, color_segment_func, analyze_mask_func
 
+import matplotlib
+matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
 
 class Control:
@@ -26,7 +28,7 @@ class Control:
 
     @classmethod
     def from_config(cls, config):
-        file_list = config.get_filepaths()
+        file_list = config.get_file_paths()
         basepath = config.get_basepath()
         func_list = config.get_run_list()
         rock_type = config.get_rock_type()

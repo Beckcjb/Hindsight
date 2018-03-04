@@ -147,16 +147,16 @@ class AnalysisWindow():
 
 
 
-		self.rockType = StringVar(analysis)
+		self.rock_type = StringVar(analysis)
 
-		self.rockType.set("Rock-E") # default value
+		self.rock_type.set("Rock-E") # default value
 
-		self.rockSelect = OptionMenu(analysis, self.rockType, "Rock-A", "Rock-B", "Rock-C", "Rock-D", "Rock-E", command=self.func)
+		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-A", "Rock-B", "Rock-C", "Rock-D", "Rock-E", command=self.func)
 		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
 
 
 	#======================================
-	# Function to return rocktype
+	# Function to return rock_type
 	def func(self, value):
 		self.heatMapButton.deselect()
 		self.imageSubButton.deselect()
@@ -166,23 +166,23 @@ class AnalysisWindow():
 		self.heatMapButton.grid_remove()
 
 
-		self.rockType = value
-		if self.rockType == "Rock-A":
+		self.rock_type = value
+		if self.rock_type == "Rock-A":
 			#self.rockAoptions()
 			pass
 
-		elif self.rockType == "Rock-B":
+		elif self.rock_type == "Rock-B":
 			self.rockBoptions()
 
-		elif self.rockType == "Rock-C":
+		elif self.rock_type == "Rock-C":
 			#self.rockCoptions()
 			pass
 
-		elif self.rockType == "Rock-D":
+		elif self.rock_type == "Rock-D":
 			#self.rockDoptions()
 			pass
 
-		elif self.rockType == "Rock-E":
+		elif self.rock_type == "Rock-E":
 			self.rockEoptions()
 
 		else:
@@ -193,9 +193,9 @@ class AnalysisWindow():
 	# Run complete analysis
 
 	def sendConfig(self):
-		self.runList = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
-		configData = Config(self.runList, self.basepath, self.file_names, self.rockType)
-		self.controller = control.Control.from_config(configData)
+		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
+		configData = Config(run_list, self.basepath, self.file_names, self.rock_type.get())
+		self.controller = Control.from_config(configData)
 
 	def run(self):
 		self.controller.run()

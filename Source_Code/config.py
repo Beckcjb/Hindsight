@@ -18,37 +18,26 @@ import sys									# System Variables
 
 class Config():
 
-	def __init__(self, runList, basepath, files, rockType):
-		self.runList = runList
+	def __init__(self, run_list, basepath, files, rock_type):
+		self.run_list = run_list
 		self.basepath = basepath
 		self.files = files
-		self.rockType = rockType
+		self.rock_type = rock_type
 
 	def get_basepath(self):
 		return self.basepath
 
 	def get_run_list(self):
-		return self.runList
+		return self.run_list
 
-	def get_file_paths(self, index):
-		return self.files[index]
+	def get_file_paths(self):
+		return self.files
 
-	def return_rock_type(self):
-		if self.rockType == "Rock-A":
-			self.rockType = "RockA"
-			return self.rockType
-		elif self.rockType == "Rock-B":
-			self.rockType = "RockB"
-			return self.rockType
-		elif self.rockType == "Rock-C":
-			self.rockType = "RockC"
-			return self.rockType
-		elif self.rockType == "Rock-D":
-			self.rockType = "RockD"
-			return self.rockType
-		elif self.rockType == "Rock-E":
-			self.rockType = "RockE"
-			return self.rockType
-		else:
-			self.rock_type = "RockE"
-			return self.rock_type
+	def get_rock_type(self):
+		rock_type_dict = {"Rock-A": "RockA",
+						  "Rock-B": "RockB",
+						  "Rock-C": "RockC",
+						  "Rock-D": "RockD",
+						  "Rock-E": "RockE"}
+
+		return rock_type_dict[self.rock_type]
