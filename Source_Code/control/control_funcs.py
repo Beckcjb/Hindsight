@@ -1,3 +1,4 @@
+import sys	
 def normalize_func(row, newMin = 0, newMax = 1):
     row['before_image'].normalize_image(newMin = newMin, newMax = newMax)
     row['after_image'].normalize_image(newMin = newMin, newMax = newMax)
@@ -10,7 +11,7 @@ def convert_func(row, from_image, to_image, conversion_type):
     row['before_image'].convert(from_image, to_image, conversion_type)
     row['after_image'].convert(from_image, to_image, conversion_type)
 
-def analyze_mask_func(row, mask, mask_type = 'pixel', buffer = 10, step = 1):
+def analyze_mask_func(row, mask = "color_mask", mask_type = 'pixel', buffer = 10):
     image = row['after_image']
     masks = {'color_mask': image['color_mask']}
 
@@ -18,13 +19,8 @@ def analyze_mask_func(row, mask, mask_type = 'pixel', buffer = 10, step = 1):
         mask = masks[mask]
     except:
         raise KeyError('The mask' + mask + 'does not exist.')
-
-    if mask_type == 'pixel':
-        image.analyze_mask_pixel(mask, buffer = buffer, step = step)
-    elif mask_type == 'block':
-        image.analyze_mask_block(mask, buffer = buffer, step = step)
-    else:
-        raise NameError('Bad type ' + mask_type + ' given.')
+    
+    image.analyze_mask(mask, buffer = buffer)
 
 def color_segment_func(row, rock_type):
     image = row['after_image']

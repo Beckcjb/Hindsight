@@ -12,10 +12,7 @@
 #			will allow the pandas dataframe to gather the necessary data and for the other methods to pull
 #			information from the class as well. 
 #==========================================================================================================
-# Includes
-#include "stdafx.h"
-#include <iostream>
-#include <math.h>
+
 
 import sys									# System Variables
 
@@ -23,37 +20,44 @@ import sys									# System Variables
 
 class Config():
 	
-	def __init__(self, runList, basepath, files, rockType):
-		self.runList = runList
+	def __init__(self, run_list, basepath, files, rock_type):
+		self.run_list = run_list
 		self.basepath = basepath
 		self.files = files
-		self.rockType = rockType
+		self.rock_type = rock_type
+		self.imageDict = {}
 		
-	def getBasepath(self):
+	def get_basepath(self):
 		return self.basepath
 	
-	def returnRunList(self):
-		return self.runList
+	def get_run_list(self):
+		return self.run_list
 	
-	def returnFilePaths(self, index):
-		return self.files[index]
+	def get_filepaths(self):
+		return self.files
 		
-	def returnRockType(self):
-		if self.rockType == "Rock-A":
-			self.rockType = "RockA"
-			return self.rockType
-		elif self.rockType == "Rock-B":
-			self.rockType = "RockB"
-			return self.rockType
-		elif self.rockType == "Rock-C":
-			self.rockType = "RockC"
-			return self.rockType
-		elif self.rockType == "Rock-D":
-			self.rockType = "RockD"
-			return self.rockType
-		elif self.rockType == "Rock-E":
-			self.rockType = "RockE"
-			return self.rockType
+	def get_rock_type(self):
+		if self.rock_type == "Rock-A":
+			self.rock_type = "RockA"
+			return self.rock_type
+		elif self.rock_type == "Rock-B":
+			self.rock_type = "RockB"
+			return self.rock_type
+		elif self.rock_type == "Rock-C":
+			self.rock_type = "RockC"
+			return self.rock_type
+		elif self.rock_type == "Rock-D":
+			self.rock_type = "RockD"
+			return self.rock_type
+		elif self.rock_type == "Rock-E":
+			self.rock_type = "RockE"
+			return self.rock_type
 		else:
-			self.rockType = "RockE"
-			return self.rockType
+			self.rock_type = "RockE"
+			return self.rock_type
+
+
+
+					
+			
+

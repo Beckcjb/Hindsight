@@ -1,14 +1,16 @@
+import sys	
 import cv2
+import os
 import math
 import numpy as np
-from utils import utils
+import utils
 
 class Image:
 
     def __init__(self, basepath, image, readType = 1):
         self.image_data = {}
         self.image_name = image
-        self.image_data['orig_image_data'] = cv2.imread(basepath + image, readType)
+        self.image_data['orig_image_data'] = cv2.imread(os.path.join(basepath, image), readType)
 
     def __getitem__(self, index):
         return self.image_data[index]
@@ -30,7 +32,10 @@ class Image:
                 img1 = self['norm_image_data']
                 img2 = sub_image['norm_image_data']
             except KeyError:
-                raise KeyError('Images do not have their associated normalized images.')
+                self.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0, 1)
+                sub_image.image_data['norm_image_data'] = utils.normalize(self.image_data['orig_image_data'], 0,1)
+                img1 = self['norm_image_data']
+                img2 = sub_image['norm_image_data']
         else:
             img1 = self[data]
             img2 = sub_image[data]
@@ -45,32 +50,14 @@ class Image:
         self.image_data['sub_mask'] = img_mask
         sub_image.image_data['sub_mask']  = img_mask
 
-    def analyze_mask_pixel(self, mask, buffer, step):
-        means = []
-        x, y = self.xy_extent()
-        for i in range(0, x, step):
-            for j in range(0, y, step):
-                crop = mask[i:(i + buffer), j:(j + buffer)]
-                means.append(np.mean(crop))
-
-        point_values = (means / max(means)) * 100
-        analyzed_image = point_values.reshape(math.ceil(x/step), math.ceil(y/step))
-        self.image_data['analyzed_image'] = analyzed_image
-
-    def analyze_mask_block(self, mask, buffer, step):
+    def analyze_mask(self, mask, buffer):
         line = []
         analyzed_image = []
         x, y = self.xy_extent()
-        for i in range(0, x, step):
-            for j in range(0, y, step):
+        for i in range(0, x, buffer):
+            for j in range(0, y, buffer):
                 crop = mask[i:(i + buffer), j:(j + buffer)]
                 mean = np.mean(crop)
-                if mean > 255 * .7:
-                    mean = 255 * .99
-                elif mean > 255 * .3:
-                    mean = 255 * .5
-                else:
-                    mean = 255 * .01
                 area = np.full((buffer, buffer), mean)
                 if len(line) == 0:
                      line = area
@@ -84,6 +71,7 @@ class Image:
         self.image_data['analyzed_image'] = analyzed_image
 
     def color_segment(self, rock_type):
+        self.convert("orig_image_data", "lab_image_data", cv2.COLOR_BGR2LAB)
         boundaries = utils.map_dust_colors(rock_type)
 
         for (lower, upper) in boundaries:
