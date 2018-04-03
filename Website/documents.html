@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Documents</title>
+    <link rel="stylesheet" href="hindsight_style_sheet.css">
+    <link rel="shortcut icon" href="./assets/Hindsight5.png"/>
+  </head>
+  <body>
+		<!-- Navigation bar -->
+		<div class="h_top">
+			<div class="h_bar h_theme-d2 h_left-align">
+				<a class="h_bar-item h_button h_hide-medium h_hide-large h_right h_hover-white h_theme-d2" href="javascript:void(0);" onclick="openNav()">
+					<i class="fa fa-bars"></i>
+				</a>
+				<a href="index.html" class="h_bar-item h_button h_red h_text-white">Home</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Project</button>
+						<div class=" h_bar-block h_dropdown-content h_button h_dropdown-click">
+							<a href="index.html#project" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Description</a>
+							<a href="index.html#solution" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Our Solution</a>
+							<a href="index.html#requirements" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">High Level Requirements</a>
+							<a href="index.html#team" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Team</a>
+							<a href="index.html#sponsor" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Sponsor</a>
+						</div>
+				</div>
+				
+				<a href="documents.html" class="h_bar-item h_hide_small h_dropdown-hover h_text-white h_dark-grey">Documents</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Schedule</button>
+						<div class="h_dropdown-content h_button h_dropdown-click h_bar-block">
+							<a href="schedule.html#fall2017" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Fall 2017</a>
+							<a href="schedule.html#spring2018" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Wikia</a>
+				<a href="#" class="h_bar-item h_button h_hide_small h_right h_hover-teal" title="Search"><i class="fa fa-search"></i></a>
+			</div>
+			
+			<!-- Navbar on small screens -->
+			<div id="navBar" class="h_bar-block h_theme-d2 h_hide h_hide-large h_hide-medium">
+				<div class="dropdown">
+					<button class="dropbtn">Project</button>
+						<div class="dropdown-content">
+							<a href="index.html#project">Project Description</a>
+							<a href="index.html#solution">Our Solution</a>
+							<a href="index.html#requirements">High Level Requirements</a>
+							<a href="index.html#team">Team</a>
+							<a href="index.html#sponsor">Project Sponsor</a>
+						</div>
+				</div>
+				<a href="documents.html" class="h_bar-item h_button">Documents</a>
+				<div class="dropdown">
+					<button class="dropbtn">Schedule</button>
+						<div class="dropdown-content">
+							<a href="schedule.html#fall2017">Fall 2017</a>
+							<a href="schedule.html#spring2018">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button">Wikia</a>
+			</div>
+		
+		</div>
+		
+		<!-- Image Header -->
+		<div class="h_display-container h_animate-opacity">
+			<img src="./images/marsImage.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+		    <div class="h_container h_display-topright h_margin-bottom h_red">  
+				<button onclick="document.getElementById('id01').style.display='block'" class="h_button h_xlarge h_theme h_hover-dark-grey" title="Hindsight">Hindsight</button>
+			</div>
+		</div>
+	
+		<!-- Make more centered in page -->
+		<h1 style="text-align: center;">Documents</h1>
+	
+		<!-- Mkae this a list to organize documents -->
+		<table align="center">
+			<tr>
+				<td style="padding: 15px; text-align: center;">
+					Technical Feasibility</td>
+				<td>
+					<a href="./deliverables/TechnicalFeasibility.pdf" 
+					download="Technical Feasibility.pdf">PDF</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="padding: 15px; text-align: center;">
+					Design Review I</td>
+				<td>
+					<a href="./deliverables/DesignReviewI.pdf"
+					download="Design Reivew I.pdf">PDF</a>
+				</td>
+				<td>
+					<a href="./deliverables/DesignReviewI.pptx"
+					download="Design Reivew I.pptx">PowerPoint</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="padding: 15px; text-align: center;">
+					Requirements Document v.2</td>
+				<td>
+					<a href="./deliverables/RequirementsDocument.pdf" 
+					download="Requirements Document v2.pdf">PDF</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="padding: 15px; text-align: center;">
+					Software Design</td>
+				<td>
+					<a href="./deliverables/DesignDocument.pdf" 
+					download="Software Design Document.pdf">PDF</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="padding: 15px; text-align: center;">
+					Design Review II</td>
+				<td>
+					<a href="./deliverables/DesignReviewII.pdf"
+					download="Design Reivew II.pdf">PDF</a>
+				</td>
+				<td>
+					<a href="./deliverables/DesignReviewII.pptx"
+					download="Design Reivew II.pptx">PowerPoint</a>
+				</td>
+			</tr>
+		</table>
+		
+		<h3 style="text-align: center;">Check back for more updates.</h3>
+  
+  </body>
+</html>
