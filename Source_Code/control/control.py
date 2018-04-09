@@ -61,8 +61,6 @@ class Control:
     
     def save(self):
         for i, image in enumerate(self.dataframe["after_image"]):
-            name = self.dataframe["image_group"];
-            group = image["orig_image_data"];
             print (name)
             print(group)
             plt.figure()
