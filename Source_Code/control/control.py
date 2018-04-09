@@ -18,6 +18,7 @@ class Control:
         self.dataframe = pd.DataFrame(columns = ['image_group','before_image','after_image','output_image'])
         self.func_list = func_list
         self.rock_type = rock_type
+        self.basepath = basepath
 
         # Loads a list of images and their associated pairs
         for file in file_list:
@@ -49,16 +50,54 @@ class Control:
         self.dataframe.apply(func_dict[func], *args, axis = 1, **kwargs)
 
     def run(self):
+    
+        count = 0
         for func in self.func_list:
             if func == "color_segment":
                 self.apply_func(func, rock_type = self.rock_type)
             else:
                 self.apply_func(func)
 
+                
+                
         for i, image in enumerate(self.dataframe["after_image"]):
-            plt.subplot(2, 2, i+1), plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
+            count += i
+            
+       #for one window     
+    ''' plt.figure()
+        for i, image in enumerate(self.dataframe["after_image"]):
+            plt.subplot(5,2,i+1)
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn", aspect="equal") 
+            plt.title('Analyzed')
+            plt.axis('off')        
+            plt.tight_layout()
+        
+        plt.figure()   
+        for i, image in enumerate(self.dataframe["after_image"]):
+            plt.subplot(5,2,i+1)
+            plt.title('Original')
+            plt.imshow(image["orig_image_data"], aspect="equal")  
+            plt.axis('off')
+            plt.tight_layout()
+
+        plt.show()'''
+        
+        #for multiple windows
+        for i, image in enumerate(self.dataframe["after_image"]):
+            plt.figure()
+            plt.subplot(1,2,1)
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn", aspect="equal") 
+            plt.title('Analyzed')
+            plt.axis('off')        
+            plt.tight_layout()
+            plt.subplot(1,2,2)
+            plt.title('Original')
+            plt.imshow(image["orig_image_data"], aspect="equal")  
+            plt.axis('off')
+            plt.tight_layout()
+            
         plt.show()
-    
+        
     def save(self):
         for i, image in enumerate(self.dataframe["after_image"]):
             print (name)
