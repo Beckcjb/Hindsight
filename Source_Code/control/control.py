@@ -58,3 +58,16 @@ class Control:
         for i, image in enumerate(self.dataframe["after_image"]):
             plt.subplot(2, 2, i+1), plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
         plt.show()
+    
+    def save(self):
+        for i, image in enumerate(self.dataframe["after_image"]):
+            name = self.dataframe["image_group"];
+            group = image["orig_image_data"];
+            print (name)
+            print(group)
+            plt.figure()
+            plt.subplot(111, frame_on=False) # no visible frame
+            plt.axis('off')
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn") 
+            #if (name[i] == )
+            plt.savefig(self.basepath + '/result_' + str(i) + '.png', bbox_inches='tight')
