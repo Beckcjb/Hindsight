@@ -24,10 +24,17 @@
 # Imports
 from Source_Code import Config, Control
 
+
 import sys									# System Variables
 import os
 import numpy as np							# Numbered python array
 import cv2									# openCV library
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+
 
 # tkinter file tools
 import tkinter
@@ -44,20 +51,21 @@ class Window():
 	def __init__(self, home):
 	# Setup window
 		self.home = home
-		home.title("Hindisight")
+		home.title("Hindsight")
 		home.wm_iconbitmap("logo.ico")
-
+		home.configure(background='#FCE5B3')
+		
 	# Place buttons/labels/entry boxes
 		entered = StringVar() # file handle
 		self.entered = entered
-		hLabel = Label (home, text="Hindsight: Image Analysis Tool")
+		hLabel = Label (home, text="Hindsight: Image Analysis Tool", bg = '#FCE5B3')
 		hLabel.grid(row=0, column=1)
 
 		browseButton = Button(home,text="Browse...",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder)
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.browseFolder)
 
 		selectButton = Button(home,text="Select",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.create_window)
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.create_window)
 		self.entry = Entry(home, width=50, textvariable=self.entered)
 		self.entry.grid(row=1, column=1)
 		browseButton.grid(row=1, column=2)
@@ -94,7 +102,9 @@ class AnalysisWindow():
 		analysis.title("Hindsight: Analysis")
 		analysis.geometry("650x325")
 		analysis.wm_iconbitmap("logo.ico")
-
+		analysis.configure(background='#FCE5B3')
+		
+		
 		# Set up Labels and Buttons
 		self.controller = None
 		self.runList = []
@@ -105,34 +115,34 @@ class AnalysisWindow():
 		self.file_names = files
 		nl = '\n'
 		text = f"Files in use {nl}{nl.join(self.file_names)}"
-		fLabel = Label(analysis, text=text) # display what images are in use
-		blabel = Label(analysis, text="Basepath: {}".format(basepath)) # display basepath to images
+		fLabel = Label(analysis, text=text, bg='#FCE5B3') # display what images are in use
+		blabel = Label(analysis,bg='#FCE5B3', text="Basepath: {}".format(basepath)) # display basepath to images
 		changeFileButton = Button(analysis,width=20, text="Change File",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.browseFolder) # change folder
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.browseFolder) # change folder
 
 		sendButton = Button(analysis,width=20,text="Send Configuration",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.sendConfig) # send image data
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.sendConfig) # send image data
 
 		runButton = Button(analysis,width=20,text="Run",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a", command=self.run) # run image analysis
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.run) # run image analysis
 
 
-		self.imageSubButton = Checkbutton(analysis,width=20,text="Image Subtraction",
+		self.imageSubButton = Checkbutton(analysis,width=20,text="Image Subtraction",bg='#FCE5B3',
 											onvalue = "subtract", offvalue = None, variable = self.runVar1,  anchor = W) # run image analysis
 
-		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
+		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",bg='#FCE5B3',
 											onvalue = "color_segment", offvalue = None, variable = self.runVar2, anchor = W) # run image analysis
 
-		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",
+		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",bg='#FCE5B3',
 											onvalue = "analyze_mask_block", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
 
 
 		saveButton = Button(analysis,width=20,text="Save Result",
-							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save results
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.saveImage)# save results
 
 
 		blabel.grid(row=0, column=1, padx=5, pady=5)
-		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
+		fLabel.grid(row=1, column=1, rowspan = 10, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
 		sendButton.grid(row=2, column=0, padx=5, pady=5)
 		runButton.grid(row=3, column=0, padx=5, pady=5)
@@ -154,7 +164,9 @@ class AnalysisWindow():
 															   "Rock-C",
 															   "Rock-D",
 															   "Rock-E",
-															   command=self.func)
+															     command=self.func)
+		self.rockSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
+		self.rockSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
 		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
 
 
@@ -190,7 +202,7 @@ class AnalysisWindow():
 		else:
 			self.rockEoptions()
 
-		return self.rockType
+		return self.rock_type
 
 	# Send the configuration to the Controller
 	def sendConfig(self):
@@ -203,8 +215,10 @@ class AnalysisWindow():
 		self.controller.run()
 
 	def rockEoptions(self):
+		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
 		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+
 
 	def rockBoptions(self):
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
@@ -216,7 +230,7 @@ class AnalysisWindow():
 
 	#Save image set
 	def saveImage(self):
-		print("Hello")
+		self.controller.save()
 
 	# File Browser
 	def browseFolder(self):
@@ -228,6 +242,8 @@ class AnalysisWindow():
 		new = AnalysisWindow(analysis, self.file_names, self.basepath)# pass file handle to new window
 	#==========================================
 
+		
+    
 root = tkinter.Tk()
 index = Window(root)
 root.mainloop()
