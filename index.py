@@ -100,7 +100,7 @@ class AnalysisWindow():
 		self.basepath = basepath
 		self.analysis = analysis
 		analysis.title("Hindsight: Analysis")
-		analysis.geometry("650x325")
+		analysis.geometry("650x400")
 		analysis.wm_iconbitmap("logo.ico")
 		analysis.configure(background='#FCE5B3')
 		
@@ -114,7 +114,7 @@ class AnalysisWindow():
 		self.file_names = [20]
 		self.file_names = files
 		nl = '\n'
-		text = f"Files in use {nl}{nl.join(self.file_names)}"
+		text = f"Files in use: {nl}{nl.join(self.file_names)}"
 		fLabel = Label(analysis, text=text, bg='#FCE5B3') # display what images are in use
 		blabel = Label(analysis,bg='#FCE5B3', text="Basepath: {}".format(basepath)) # display basepath to images
 		changeFileButton = Button(analysis,width=20, text="Change File",
