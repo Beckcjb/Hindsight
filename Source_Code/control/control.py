@@ -77,7 +77,7 @@ class Control:
             plt.axis('off')
             plt.tight_layout()
             name = self.after_images[i][:11]
-            afterNumber = self.after_images[i][12:]
+            afterNumber = self.after_images[i][12:18]
             fig.canvas.set_window_title( name + '_' + afterNumber)
             
         plt.show()
@@ -89,5 +89,5 @@ class Control:
             plt.axis('off')
             plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
             name = self.after_images[i][:11]
-            afterNumber = self.after_images[i][12:]
+            afterNumber = self.after_images[i][12:18]
             plt.savefig(self.basepath + '/' + name + afterNumber + '_result.png', bbox_inches='tight')
