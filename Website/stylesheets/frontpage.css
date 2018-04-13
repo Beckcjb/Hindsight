@@ -1,0 +1,9 @@
+#logo {
+  float: right;
+}
+
+h1 {
+  display: inline-block;
+  width: 93%;
+  text-align: center;
+}
