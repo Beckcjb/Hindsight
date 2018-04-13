@@ -18,6 +18,7 @@ class Control:
         self.dataframe = pd.DataFrame(columns = ['image_group','before_image','after_image','output_image'])
         self.func_list = func_list
         self.rock_type = rock_type
+        self.basepath = basepath
 
         # Loads a list of images and their associated pairs
         for file in file_list:
@@ -49,12 +50,44 @@ class Control:
         self.dataframe.apply(func_dict[func], *args, axis = 1, **kwargs)
 
     def run(self):
+    
+        count = 0
         for func in self.func_list:
             if func == "color_segment":
                 self.apply_func(func, rock_type = self.rock_type)
             else:
                 self.apply_func(func)
 
+        self.after_images = []
+        for i, elem in enumerate(self.file_list):
+            if 'af' in elem:
+                self.after_images.append(elem)
+        
+        #for multiple windows
         for i, image in enumerate(self.dataframe["after_image"]):
-            plt.subplot(2, 2, i+1), plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
+            fig = plt.figure()
+            plt.subplot(1,2,1)
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn", aspect="equal") 
+            plt.title('Analyzed')
+            plt.axis('off')        
+            plt.tight_layout()
+            plt.subplot(1,2,2)
+            plt.title('Original')
+            plt.imshow(image["orig_image_data"], aspect="equal")  
+            plt.axis('off')
+            plt.tight_layout()
+            name = self.after_images[i][:11]
+            afterNumber = self.after_images[i][12:]
+            fig.canvas.set_window_title( name + '_' + afterNumber)
+            
         plt.show()
+        
+    def save(self):
+        for i, image in enumerate(self.dataframe["after_image"]):
+            plt.figure()
+            plt.subplot(111, frame_on=False) # no visible frame
+            plt.axis('off')
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
+            name = self.after_images[i][:11]
+            afterNumber = self.after_images[i][12:]
+            plt.savefig(self.basepath + '/' + name + afterNumber + '_result.png', bbox_inches='tight')
