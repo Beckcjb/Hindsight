@@ -108,8 +108,8 @@ class AnalysisWindow():
 		
 		
 		# Set up Labels and Buttons
-		self.buffer = IntVar()
-		self.buffer.set(5)
+		self.bufferVal = IntVar()
+		self.bufferVal.set(5)
 		self.abrasionX = IntVar()
 		self.abrasionX.set(1110)
 		self.abrasionY = IntVar()
@@ -119,7 +119,7 @@ class AnalysisWindow():
 		self.bandSize = DoubleVar()
 		self.bandSize.set(0.7)
 		self.controller = None
-		self.runList = []
+		self.run_list = []
 		self.runVar1 = StringVar()
 		self.runVar2 = StringVar()
 		self.runVar3 = StringVar()
@@ -144,7 +144,7 @@ class AnalysisWindow():
 
 		saveButton = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.saveImage)# save results
-		self.bufferEntry = 		Entry(analysis,width=10, textvariable=self.buffer)
+		self.bufferEntry = 		Entry(analysis,width=10, textvariable=self.bufferVal)
 		self.abrasionXspot = 	Entry(analysis, text="Moves L/R:", width=10, textvariable=self.abrasionX)		
 		self.abrasionYspot = 	Entry(analysis, width=10, textvariable=self.abrasionY)		
 		self.abrasionRadius = 	Entry(analysis, width=10, textvariable=self.abrasionRadi)	
@@ -211,6 +211,7 @@ class AnalysisWindow():
 		self.abrasionRadius.grid_forget()
 		self.applyButton.grid_forget()
 		self.densityDetectionSelect.grid_forget()
+        
 		self.rock_type = value
 		if self.rock_type == "Rock-B":
 			self.rockBoptions()
@@ -317,10 +318,10 @@ class AnalysisWindow():
 		self.applyButton.grid(row=15, column=0, pady=5)
 	
 	def sendConfig(self):
-		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
-		configData = Config(run_list, self.basepath, self.file_names, self.rock_type.get(), 
+		self.run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
+		configData = Config(self.run_list, self.basepath, self.file_names, self.rock_type, 
 							self.abrasionRadi.get(), self.abrasionX.get(), self.abrasionY.get(), 
-							self.bandSize.get(), self.buffer.get())
+							self.bandSize.get(), self.bufferVal.get(), self.run_options)
 		self.controller = Control.from_config(configData)
 
 	# Run the current functions in the controller
