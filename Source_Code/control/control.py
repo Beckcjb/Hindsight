@@ -16,7 +16,8 @@ from matplotlib import pyplot as plt
 
 class Control:
 
-    def __init__(self, file_list, basepath, func_list, rock_type, *args, **kwargs):
+    def __init__(self, file_list, basepath, func_list, rock_type,  edge_value_x, edge_value_y, 
+                    edge_value_radi, band_size, buffer, analysis_option, *args, **kwargs):
         self.dataframe = pd.DataFrame(columns = ['image_group','before_image','after_image','output_image'])
         self.func_list = func_list
         self.rock_type = rock_type
