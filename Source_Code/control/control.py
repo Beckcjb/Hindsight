@@ -72,6 +72,8 @@ class Control:
         for func in self.func_list:
             if func == "color_segment":
                 self.apply_func(func, rock_type = self.rock_type)
+            else if func =="None":
+                pass
             else:
                 self.apply_func(func)
 
