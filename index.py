@@ -101,6 +101,7 @@ class AnalysisWindow():
 		self.runVar1 = StringVar()
 		self.runVar2 = StringVar()
 		self.runVar3 = StringVar()
+		self.runVar4 = StringVar()
 		self.file_names = [20]
 		self.file_names = files
 		nl = '\n'
@@ -123,13 +124,15 @@ class AnalysisWindow():
 		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",
 											onvalue = "color_segment", offvalue = None, variable = self.runVar2, anchor = W) # run image analysis
 
+		self.mlColorSegButton    = Checkbutton(analysis,width=20,text="MatLab Color Segmenation",
+											   onvalue = "ml_color_segment", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
+
 		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",
-											onvalue = "analyze_mask_block", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
+											onvalue = "analyze_mask", offvalue = None, variable = self.runVar4, anchor = W) # run image analysis
 
 
 		saveButton = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#c40e0b", activebackground= "#4c4a4a")# save results
-
 
 		blabel.grid(row=0, column=1, padx=5, pady=5)
 		fLabel.grid(row=1, column=1, rowspan = 4, padx=5, pady=5)
@@ -139,10 +142,12 @@ class AnalysisWindow():
 		saveButton.grid(row=4, column=0,padx=5,pady=5)
 		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		self.mlColorSegButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=9, column=0,padx=5,pady=5, sticky=W)
 
 		self.imageSubButton.deselect()
 		self.colorSegButton.deselect()
+		self.mlColorSegButton.deselect()
 		self.heatMapButton.deselect()
 
 		self.rock_type = StringVar(analysis)
@@ -194,7 +199,7 @@ class AnalysisWindow():
 
 	# Send the configuration to the Controller
 	def sendConfig(self):
-		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
+		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get(), self.runVar4.get()]
 		configData = Config(run_list, self.basepath, self.file_names, self.rock_type.get())
 		self.controller = Control.from_config(configData)
 
@@ -204,15 +209,18 @@ class AnalysisWindow():
 
 	def rockEoptions(self):
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		self.colorSegButton.grid(row=8,  column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=9, column=0,padx=5,pady=5, sticky=W)
 
 	def rockBoptions(self):
 		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		self.mlColorSegButton.grid(row=8,  column=0,padx=5,pady=5, sticky=W)
 
 	def allOptions(self):
 		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
 		self.colorSegButton.grid(row=7,  column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		self.mlColorSegButton.grid(row=8,  column=0,padx=5,pady=5, sticky=W)
+		self.heatMapButton.grid(row=9, column=0,padx=5,pady=5, sticky=W)
 
 	#Save image set
 	def saveImage(self):
