@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<title>Schedule</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="hindsight_style_sheet.css">
+	
+    <body id="myPage">
+
+        <!-- Navigation bar -->
+		<div class="h_top">
+			<div class="h_bar h_theme-d2 h_left-align">
+				<a class="h_bar-item h_button h_hide-medium h_hide-large h_right h_hover-white h_theme-d2" href="javascript:void(0);" onclick="openNav()">
+					<i class="fa fa-bars"></i>
+				</a>
+				<a href="index.html" class="h_bar-item h_button h_red h_text-white">Home</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Project</button>
+						<div class=" h_bar-block h_dropdown-content h_button h_dropdown-click">
+							<a href="index.html#project" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Description</a>
+							<a href="index.html#solution" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Our Solution</a>
+							<a href="index.html#requirements" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">High Level Requirements</a>
+							<a href="index.html#team" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Team</a>
+							<a href="index.html#sponsor" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Sponsor</a>
+						</div>
+				</div>
+				
+				<a href="documents.html" class="h_bar-item h_hide_small h_dropdown-hover h_text-white h_dark-grey">Documents</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Schedule</button>
+						<div class="h_dropdown-content h_button h_dropdown-click h_bar-block">
+							<a href="#fall2017" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Fall 2017</a>
+							<a href="#spring2018" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Wikia</a>
+				<a href="#" class="h_bar-item h_button h_hide_small h_right h_hover-teal" title="Search"><i class="fa fa-search"></i></a>
+			</div>
+			
+			<!-- Navbar on small screens -->
+			<div id="navBar" class="h_bar-block h_theme-d2 h_hide h_hide-large h_hide-medium">
+				<div class="dropdown">
+					<button class="dropbtn">Project</button>
+						<div class="dropdown-content">
+							<a href="index.html#project">Project Description</a>
+							<a href="index.html#solution">Our Solution</a>
+							<a href="index.html#requirements">High Level Requirements</a>
+							<a href="index.html#team">Team</a>
+							<a href="index.html#sponsor">Project Sponsor</a>
+						</div>
+				</div>
+				<a href="documents.html" class="h_bar-item h_button">Documents</a>
+				<div class="dropdown">
+					<button class="dropbtn">Schedule</button>
+						<div class="dropdown-content">
+							<a href="#fall2017">Fall 2017</a>
+							<a href="#spring2018">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button">Wikia</a>
+			</div>
+		
+		</div>
+		
+		<!-- Image Header -->
+		<div class="h_display-container h_animate-opacity">
+			<img src="./images/marsImage.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+		    <div class="h_container h_display-topright h_margin-bottom h_red">  
+				<button onclick="document.getElementById('id01').style.display='block'" class="h_button h_xlarge h_theme h_hover-dark-grey" title="Hindsight">Hindsight</button>
+			</div>
+		</div>
+		
+		<!-- Schedule Table -->
+		<div class="h_container h_padding-64 h_center" id="fall2017">
+			<h2 align="center">Team Schedule - Fall 2017</h2>
+			<hr />
+		
+			<table align="center" style="border-spacing:18px">
+				<thead>
+					<tr>
+						<th align="left">Week Started</th>
+						<th align="left">Milestone</th>
+						<th align="left">Date Finished</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th align="left">4</th>
+						<td>Team Startup</td>
+						<td>September 14, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">4</th>
+						<td>Team Standards Document</td>
+						<td>September 20, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">4</th>
+						<td>Trello Board Created</td>
+						<td>September 22, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">5</th>
+						<td>Team Website Created</td>
+						<td>October 7, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">6</th>
+						<td>Website Update #1</td>
+						<td>October 10, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">6</th>
+						<td>Research for Technical Feasibility</td>
+						<td>October 20, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">7 </th>
+						<td>Technical Feasibility Document</td>
+						<td>October 26, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">8</th>
+						<td>Website Update #2</td>
+						<td>October 29, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">10</th>
+						<td>Design Review I</td>
+						<td>November 21, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">14</th>
+						<td>Website Update #3</td>
+						<td>December 3, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">8</th>
+						<td>Requirements Document</td>
+						<td>December 5, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">8</th>
+						<td>Working Prototype for Rock Type E</td>
+						<td>December 12, 2017</td>
+					</tr>
+					<tr>
+						<th align="left">13</th>
+						<td>GUI Prototype</td>
+						<td>Est. Late December 2017</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<h3 align="center">Development Schedule - Fall 2017</h3>
+		<img align="center" src="./images/ganttChart.PNG" alt="Development Schedule - Fall 2017">
+		
+		<hr />
+		<!-- Spring 2018 Development Schedule Container -->
+		<div class="h_container h_padding-64 h_center" id="spring2018">
+		<h2 align="center">Team Schedule</h2>
+		<hr />
+		
+		<!-- Schedule Table -->
+			<table align="center" style="border-spacing:18px">
+				<thead>
+					<tr>
+						<th align="center">Date Start</th>
+						<th align="center">Milestone</th>
+						<th align="center">Expected Date End</th>
+						<th align="center">Status</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th align="left">2018-01-21</th>
+							<td>Dust Density Improvement</td>
+							<td>2018-01-31</td>
+							<td>Completed</td>
+						</tr>
+						<tr>
+							<th align="left">2018-01-21</th>
+							<td>Develop GUI</td>
+							<td>2018-02-20</td>
+							<td>Completed</td>
+						</tr>
+						<tr>
+							<th align="left">2018-01-26</th>
+							<td>MVP - Integrate and Test GUI
+							with Rock Type E Analysis</td>
+							<td>2018-03-26</td>
+							<td>Working on Task</td>
+						</tr>
+						<tr>
+							<th align="left">2018-01-21</th>
+							<td>Find Center of Abrasion</td>
+							<td>2018-03-26</td>
+							<td>Completed</td>
+						</tr>
+						<tr>
+							<th align="left">2018-01-21</th>
+							<td>Second Rock Type Analysis - Rock Type B</td>
+							<td>2018-03-20</td>
+							<td>Working on Task</td>
+						</tr>
+						<tr>
+							<th align="left">2018-03-20</th>
+							<td>Integrate and Test GUI with
+							Second Rock Type Analysis</td>
+							<td>2018-04-20</td>
+							<td>Not Started</td>
+						</tr>
+						<tr>
+							<th align="left">2018-03-20</th>
+							<td>Third Rock Type Analysis</td>
+							<td>2018-04-20</td>
+							<td>Not Started</td>
+						</tr>
+						<tr>
+							<th align="left">2018-04-20</th>
+							<td>Integrate and Test GUI with
+							Third Rock Type Analysis</td>
+							<td>2018-05-05</td>
+							<td>Not Started</td>
+						</tr>
+				</tbody>
+			</table>
+		
+			<h3 align="center">Development Schedule - Spring 2018</h3>
+			<img align="center" src="./images/ganttChart2018.PNG" alt="Development Schedule - Spring 2018">
+		
+		
+		</div>
+	
+	</body>
+</html>	

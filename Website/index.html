@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<title>Hindsight</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="hindsight_style_sheet.css">
+	
+	<body id="myPage">
+
+		<!-- Navigation bar -->
+		<div class="h_top">
+			<div class="h_bar h_theme-d2 h_left-align">
+				<a class="h_bar-item h_button h_hide-medium h_hide-large h_right h_hover-white h_theme-d2" href="javascript:void(0);" onclick="openNav()">
+					<i class="fa fa-bars"></i>
+				</a>
+				<a href="index.html" class="h_bar-item h_button h_red h_text-white">Home</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Project</button>
+						<div class=" h_bar-block h_dropdown-content h_button h_dropdown-click">
+							<a href="#project" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Description</a>
+							<a href="#solution" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Our Solution</a>
+							<a href="#requirements" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">High Level Requirements</a>
+							<a href="#team" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Team</a>
+							<a href="#sponsor" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Project Sponsor</a>
+						</div>
+				</div>
+				<a href="documents.html" class="h_bar-item h_hide_small h_dropdown-hover h_text-white h_dark-grey">Documents</a>
+				<div class="h_bar-item h_hide_small h_dropdown-hover  h_text-white h_dark-grey">
+					<button class="h_btn  h_text-white h_dark-grey h_hide_small">Schedule</button>
+						<div class="h_dropdown-content h_button h_dropdown-click h_bar-block">
+							<a href="schedule.html#fall2017" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Fall 2017</a>
+							<a href="schedule.html#spring2018" class="h_dropdown-content h_dropdown-hover h_bar-block h_text-white h_dark-grey h_hover-white">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button h_hide_small h_hover-white h_text-white h_dark-grey">Wikia</a>
+				<a href="#" class="h_bar-item h_button h_hide_small h_right h_hover-teal" title="Search"><i class="fa fa-search"></i></a>
+			</div>
+			
+			<!-- Navbar on small screens -->
+			<div id="navBar" class="h_bar-block h_theme-d2 h_hide h_hide-large h_hide-medium">
+				<div class="dropdown">
+					<button class="dropbtn">Project</button>
+						<div class="dropdown-content">
+							<a href="#project">Project Description</a>
+							<a href="#solution">Our Solution</a>
+							<a href="#requirements">High Level Requirements</a>
+							<a href="#team">Team</a>
+							<a href="#sponsor">Project Sponsor</a>
+						</div>
+				</div>
+				<a href="documents.html" class="h_bar-item h_button">Documents</a>
+				<div class="dropdown">
+					<button class="dropbtn">Schedule</button>
+						<div class="dropdown-content">
+							<a href="schedule.html#fall2017">Fall 2017</a>
+							<a href="schedule.html#spring2018">Spring 2018</a>
+						</div>
+				</div>
+				<a href="technologies.html" class="h_bar-item h_button">Technologies</a>
+				<a href="wikiPage.html" class="h_bar-item h_button">Wikia</a>
+			</div>
+		
+		</div>
+		
+		<!-- Image Header -->
+		<div class="h_display-container h_animate-opacity">
+			<img src="./images/marsImage.png" alt="boat" style="width:100%;min-height:350px;max-height:600px;">
+		    <div class="h_container h_display-topright h_margin-bottom h_red">  
+				<button onclick="document.getElementById('id01').style.display='block'" class="h_button h_xlarge h_theme h_hover-dark-grey" title="Hindsight">Hindsight</button>
+			</div>
+		</div>
+		
+		<!-- Project Container -->
+		<div class="h_container h_padding-64 h_center" id="project">
+			<h2>Project Title - Image Analysis of Abraded Rocks to
+			Determine Dust-Free Area</h2>
+			
+			<h2>Project Description</h2>
+		    <p>The sponsor for this project is the Jet Propulsion Laboratory (JPL) at the
+			California Institute of Technology with our main point of contact/client being
+			Ioan Brockie, a Mechatronics Engineer at JPL.</p>
+			<p>JPL is a federally funded NASA research and development center whose primary 
+			role is to construct and operate planetary robotic spacecraft. JPL has had a hand 
+			in a wide variety of scientific missions. From launching satellites that study 
+			Earth, aiding in natural disaster relief (e.g.  NASA–ISRO Synthetic Aperture Radar,
+			or NISAR) to other space vehicles that do Astronomy (e.g. Kepler, Voyager, Cassini, 
+			etc.). JPL’s missions provide insight for better understanding how our home and our 
+			universe works making it a better place for everyone to live.</p>
+			<p>Mars is one planetary body that JPL has been actively carrying out scientific 
+			missions on over that last few decades. JPL’s newest rover, Mars 2020 (M2020) will 
+			aim to further deepen our understanding of whether or not the red planet was once 
+			habitable. Specifically, the primary goal of M2020 will be to look for evidence of 
+			past life on Mars by analyzing and collecting samples of the Martian surface which will 
+			then be picked up by a future mission.</p>
+			<p>One of JPL’s current projects is the Mars 2020 (M2020) rover, an upcoming mission to 
+			Mars that will explore various regions of the Martian surface to search for evidence of 
+			past life on Mars. The significance of finding past life on Mars would provide more insight 
+			to the development of humans and all species on Earth. If we are able to find evidence of 
+			Martian life, it would create many opportunities for space exploration.</p>
+			<p>In its quest to find evidence of past life, the M2020 rover will use a suite of tools 
+			including an onboard drill with a set of drill bits to take measurements of the soil/rock 
+			and potentially collect samples from the Martian surface to return to Earth later. To identify 
+			what samples to take, the rover is equipped with a Planetary Instrument for X-ray Lithochemistry 
+			(PIXL) camera. The PIXL camera looks at a particular region and analyzes it for chemical compounds 
+			and elemental makeup. However, before instruments like PIXL can analyze samples, the rover needs to 
+			overcome a problem inherent to drilling. When the rover drills into a rock, it creates a lot of dust, 
+			obscuring the hole.</p>
+			<p>JPL’s solution to the dust problem is to blow the dust out of the hole using compressed air. However, 
+			JPL’s testing of this dust removal tool is slow and manual. For some of these tests, the team at JPL 
+			mimics the Martian atmosphere by drilling in a pressurized vacuum chamber. This is a time-consuming process 
+			because they have to bring the vacuum chamber back up to Earth’s atmospheric pressure, examine the results by 
+			hand, and then bring the chamber back down to Mars atmospheric pressure again to run more tests. Furthermore, 
+			because they are having someone review and analyze each test by hand, results are less consistent and are less 
+			accurate as they are subject to human error and human bias for what looks like dust. Ideally, the team at JPL 
+			wants to automatically analyze their tests while under pressure in the vacuum chamber using only the cameras.</p>
+		</div>
+		
+		<!-- Solution Container -->
+		<div class="h_container h_padding-64 h_center" id="solution">
+			<h2>Our Solution</h2>
+			
+			<img align="center" src="./images/originalProcess.png" alt="Original Client Process">
+			<img align="center" src="./images/newProcess.png" alt="New Process">
+			<img align="center" src="./images/processKey.PNG" alt="Process Key">
+		
+		    <p>Our solution will allow JPL to analyze images taken inside the vacuum chamber while it is pressurized. They can
+			pump down to the Martian atmosphere, drill into the rock, take a before picture, blow dust, take an after picture, 
+			analyze the images taken, and repeat the process until their testing is finished. They will not have to pump back up
+			to Earth's atmospher as often and the process will be less manual.</p>
+		</div>
+		
+		<!-- Requirements Container -->
+		<div class="h_container h_padding-64 h_center" id="requirements">
+			<h2>High Level Requirements</h2>
+		    
+			<p>Here are the high-level requirements that we obtained from our client in the fall semester.</p>
+			
+			<table align="center" style="border-spacing:18px">
+				<tr>
+					<th scope="col">Functional Requirements</th>
+					<th scope="col">Non-Functional Requirements</th>
+				</tr>
+				<tr>
+					<td align="left">Handle a batch of images</td>
+					<td align="left">Display the percentage of areas cleared</td>
+				</tr>
+				<tr>
+					<td align="left">Analyze image(s) for dust</td>
+					<td align="left">Display the after air blast and corresponding analyzed images in a GUI</td>
+				</tr>
+				<tr>
+					<td align="left">Allow the user to adjust parameters</td>
+					<td align="left">Program should take no longer than a minute per image pair.</td>
+				</tr>
+				<tr>
+					<td align="left">Mark areas for dust coverage</td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- Team Information Container -->
+		<div class="h_container h_padding-64 h_center" id="team">
+			<h2>The Project Team</h2>
+
+			<div class="h_row"><br>
+
+				<div class="h_quarter">
+					<img src="./images/adam.jpg" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+					<h3>Adam Paquette</h3>
+					<p>Architect, Coder</p>
+				</div>
+
+				<div class="h_quarter">
+					<img src="./images/alex.JPG" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+					<h3>Alexanderia Nelson</h3>
+					<p>Release Manager, Documents/Research</p>
+				</div>
+
+				<div class="h_quarter">
+					<img src="./images/charles.jpg" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+					<h3>Charles Beck</h3>
+					<p>Recorder, Coder</p>
+				</div>
+
+				<div class="h_quarter">
+					<img src="./images/hunter.png" alt="Boss" style="width:45%" class="h_circle h_hover-opacity">
+					<h3>Hunter Rainen</h3>
+					<p>Team Lead, Coder</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Sponsor Container -->
+		<div class="h_container h_padding-64 h_center" id="sponsor">
+			<h2>Project Sponsor and Client</h2>
+			<img src="./images/ionaBrockie.png" style="width:69">
+			<div class="h_container">
+				<h3>Client</h3>
+				<h4>Iona Brockie</h4>
+				<p>NASA/JPL-Caltech</p>
+				<p>Mars 2020 MSL</p>
+				<a href="https://www.jpl.nasa.gov/">JPL Website</a>
+		</div>
+
+	</body>
+</html>

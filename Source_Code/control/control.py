@@ -20,6 +20,7 @@ class Control:
         self.dataframe = pd.DataFrame(columns = ['image_group','before_image','after_image','output_image'])
         self.func_list = func_list
         self.rock_type = rock_type
+        self.basepath = basepath
         self.matlab_engine = matlab.engine.start_matlab()
         self.matlab_engine.addpath(r'./Source_Code/color_seg_matlab')
 
@@ -55,6 +56,8 @@ class Control:
         self.dataframe.apply(func_dict[func], *args, axis = 1, **kwargs)
 
     def run(self):
+
+        count = 0
         for func in self.func_list:
             if func == '0':
                 continue
@@ -65,10 +68,31 @@ class Control:
             else:
                 self.apply_func(func)
 
-        size = math.ceil(math.sqrt(len(self.dataframe["after_image"])))
-        percentage_string = "Percentages for {}: {}"
+        #for multiple windows
         for i, image in enumerate(self.dataframe["after_image"]):
-            print(percentage_string.format(image.image_name, image.image_data['percentages']))
-            plt.subplot(size, size, i+1), plt.imshow(image["analyzed_image"], cmap = "RdYlGn"), plt.title(image.image_name)
-        plt.subplots_adjust(wspace=0.2, hspace = 0.5)
+            fig = plt.figure()
+            plt.subplot(1,2,1)
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn", aspect="equal")
+            plt.title('Analyzed')
+            plt.axis('off')
+            plt.tight_layout()
+            plt.subplot(1,2,2)
+            plt.title('Original')
+            plt.imshow(image["orig_image_data"], aspect="equal")
+            plt.axis('off')
+            plt.tight_layout()
+            name = image.image_name[:11]
+            after_number = image.image_name[12:18]
+            fig.canvas.set_window_title( name + '_' + after_number)
+
         plt.show()
+
+    def save(self):
+        for i, image in enumerate(self.dataframe["after_image"]):
+            plt.figure()
+            plt.subplot(111, frame_on=False) # no visible frame
+            plt.axis('off')
+            plt.imshow(image["analyzed_image"], cmap = "RdYlGn")
+            name = image.image_name[:11]
+            after_number = image.image_name[12:18]
+            plt.savefig(self.basepath + '/' + name + after_number + '_result.png', bbox_inches='tight')
