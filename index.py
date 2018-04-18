@@ -94,25 +94,38 @@ class Window():
 ''' AnalysisWindow: This window is where the main section of the program is carrried out. Here we will us the
 					path of the previously selected folder and apply our analysis on each image in the folder
 					that is an after image of dust removal.'''
+					
+					
 class AnalysisWindow():
 	def __init__(self, analysis, files, basepath):
 	# Set up analysis window
 		self.basepath = basepath
 		self.analysis = analysis
 		analysis.title("Hindsight: Analysis")
-		analysis.geometry("650x400")
+		analysis.geometry("650x650")
 		analysis.wm_iconbitmap("logo.ico")
 		analysis.configure(background='#FCE5B3')
 		
 		
 		# Set up Labels and Buttons
+		self.bufferVal = IntVar()
+		self.bufferVal.set(5)
+		self.abrasionX = IntVar()
+		self.abrasionX.set(1110)
+		self.abrasionY = IntVar()
+		self.abrasionY.set(1135)
+		self.abrasionRadi = IntVar()
+		self.abrasionRadi.set(320)
+		self.bandSize = DoubleVar()
+		self.bandSize.set(0.7)
 		self.controller = None
-		self.runList = []
+		self.run_list = []
 		self.runVar1 = StringVar()
 		self.runVar2 = StringVar()
 		self.runVar3 = StringVar()
 		self.file_names = [20]
 		self.file_names = files
+		self.files_ = files
 		nl = '\n'
 		text = f"Files in use: {nl}{nl.join(self.file_names)}"
 		fLabel = Label(analysis, text=text, bg='#FCE5B3') # display what images are in use
@@ -126,75 +139,82 @@ class AnalysisWindow():
 		runButton = Button(analysis,width=20,text="Run",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.run) # run image analysis
 
-
-		self.imageSubButton = Checkbutton(analysis,width=20,text="Image Subtraction",bg='#FCE5B3',
-											onvalue = "subtract", offvalue = None, variable = self.runVar1,  anchor = W) # run image analysis
-
-		self.colorSegButton   = Checkbutton(analysis,width=20,text="Color Segmenation",bg='#FCE5B3',
-											onvalue = "color_segment", offvalue = None, variable = self.runVar2, anchor = W) # run image analysis
-
-		self.heatMapButton    = Checkbutton(analysis,width=20,text="Heat Map",bg='#FCE5B3',
-											onvalue = "analyze_mask_block", offvalue = None, variable = self.runVar3, anchor = W) # run image analysis
-
+		self.applyButton = Button(analysis,width=10,text="Apply",
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.applyCircle) # run image analysis
 
 		saveButton = Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.saveImage)# save results
+		self.bufferEntry = 		Entry(analysis,width=10, textvariable=self.bufferVal)
+		self.abrasionXspot = 	Entry(analysis, text="Moves L/R:", width=10, textvariable=self.abrasionX)		
+		self.abrasionYspot = 	Entry(analysis, width=10, textvariable=self.abrasionY)		
+		self.abrasionRadius = 	Entry(analysis, width=10, textvariable=self.abrasionRadi)	
+		self.bandSizeEnt =			Entry(analysis, width=10, textvariable=self.bandSize)
+		self.bufText = Label(analysis,  text="Incriment Size(5-15):", bg = '#FCE5B3')
+		self.abrasionXtext = Label(analysis,  text="Move L/R:", bg = '#FCE5B3')
+		self.abrasionYtext = Label(analysis,  text="Move U/D:", bg = '#FCE5B3')
+		self.abrasionRadiText = Label(analysis, text="Change Radius:", bg = '#FCE5B3')
+		self.bandSizeText = 	Label(analysis, text="Band Size(0.01-0.99):", bg='#FCE5B3')
 
+		self.densityDetectionType = StringVar(analysis)
+
+		self.densityDetectionType.set("Detecion Shape") # default value
+
+		self.densityDetectionSelect = OptionMenu(analysis, self.densityDetectionType, "Detecion Shape","Circular","Square",
+															     command=self.detectFunc)
+		self.densityDetectionSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
+		self.densityDetectionSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
 
 		blabel.grid(row=0, column=1, padx=5, pady=5)
-		fLabel.grid(row=1, column=1, rowspan = 10, padx=5, pady=5)
+		fLabel.grid(row=1, column=1, rowspan = 5, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
-		sendButton.grid(row=2, column=0, padx=5, pady=5)
-		runButton.grid(row=3, column=0, padx=5, pady=5)
-		saveButton.grid(row=4, column=0,padx=5,pady=5)
-		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
-		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		sendButton.grid(row=2, column=0, pady=5)
+		runButton.grid(row=3, column=0, pady=5)
+		saveButton.grid(row=4, column=0,pady=5)
 
-		self.imageSubButton.deselect()
-		self.colorSegButton.deselect()
-		self.heatMapButton.deselect()
 
 		self.rock_type = StringVar(analysis)
 
-		self.rock_type.set("Rock-E") # default value
+		self.rock_type.set("Rock-Type") # default value
 
-		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-A",
-															   "Rock-B",
-															   "Rock-C",
-															   "Rock-D",
+		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-Type","Rock-B",
 															   "Rock-E",
 															     command=self.func)
 		self.rockSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.rockSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
-		self.rockSelect.grid(row=3, column=2, padx=5, pady=5)
+		self.rockSelect.grid(row=3, column=2, pady=5)
+		
+		self.run_options = StringVar()
+
+		self.run_options.set("Analysis Type") # default value
+
+		self.run_select = OptionMenu(self.analysis, self.run_options, "Analysis Type","Color Analysis",
+															   "Image Subtraction",
+															     command=self.runFunc)
+		self.run_select.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
+		self.run_select["menu"].configure(bg = "#881600", fg = '#ffffff')
 
 
 	#======================================
 	# Function to return rock_type
 	def func(self, value):
-		self.heatMapButton.deselect()
-		self.imageSubButton.deselect()
-		self.colorSegButton.deselect()
-		self.colorSegButton.grid_remove()
-		self.imageSubButton.grid_remove()
-		self.heatMapButton.grid_remove()
-
+		self.run_select.grid_forget()
+		self.densityDetectionSelect.grid_forget()
+		self.bufText.grid_forget()
+		self.bandSizeText.grid_forget()
+		self.bandSizeEnt.grid_forget()
+		self.abrasionXtext.grid_forget()
+		self.abrasionYtext.grid_forget()
+		self.abrasionRadiText.grid_forget()
+		self.bufferEntry.grid_forget()
+		self.abrasionXspot.grid_forget()
+		self.abrasionYspot.grid_forget()
+		self.abrasionRadius.grid_forget()
+		self.applyButton.grid_forget()
+		self.densityDetectionSelect.grid_forget()
+        
 		self.rock_type = value
-		if self.rock_type == "Rock-A":
-			#self.rockAoptions()
-			pass
-
-		elif self.rock_type == "Rock-B":
+		if self.rock_type == "Rock-B":
 			self.rockBoptions()
-
-		elif self.rock_type == "Rock-C":
-			#self.rockCoptions()
-			pass
-
-		elif self.rock_type == "Rock-D":
-			#self.rockDoptions()
-			pass
 
 		elif self.rock_type == "Rock-E":
 			self.rockEoptions()
@@ -204,10 +224,104 @@ class AnalysisWindow():
 
 		return self.rock_type
 
+	def runFunc(self, value):	
+		self.densityDetectionSelect.grid_forget()
+		self.bufText.grid_forget()
+		self.bandSizeText.grid_forget()
+		self.bandSizeEnt.grid_forget()
+		self.abrasionXtext.grid_forget()
+		self.abrasionYtext.grid_forget()
+		self.abrasionRadiText.grid_forget()
+		self.bufferEntry.grid_forget()
+		self.abrasionXspot.grid_forget()
+		self.abrasionYspot.grid_forget()
+		self.abrasionRadius.grid_forget()
+		self.applyButton.grid_forget()
+		self.run_options = value
+		if self.run_options == "Color Analysis":
+			self.colorAnalysis()
+
+		elif self.run_options == "Image Subtraction":
+			self.imageSubtract()
+
+		else:
+			self.colorAnalysis()
+
+		return self.run_options
+
+	def detectFunc(self, value):		
+		self.bufText.grid_forget()
+		self.bandSizeEnt.grid_forget()
+		self.bandSizeText.grid_forget()
+		self.abrasionXtext.grid_forget()
+		self.abrasionYtext.grid_forget()
+		self.abrasionRadiText.grid_forget()
+		self.bufferEntry.grid_forget()
+		self.abrasionXspot.grid_forget()
+		self.abrasionYspot.grid_forget()
+		self.abrasionRadius.grid_forget()
+		self.applyButton.grid_forget()
+		self.densityDetectionType = value
+		if self.densityDetectionType == "Circular":
+			self.circular()
+
+		elif self.densityDetectionType == "Square":
+			self.square()
+
+
+		return self.densityDetectionType
+				
 	# Send the configuration to the Controller
+	def imageSubtract(self):
+		self.applyButton.grid_forget()
+		self.bufferEntry.grid_forget()
+		self.abrasionXspot.grid_forget()
+		self.abrasionYspot.grid_forget()
+		self.abrasionRadius.grid_forget()
+		self.densityDetectionSelect.grid_forget()
+		self.bandSizeText.grid_forget()
+		self.bandSizeEnt.grid_forget()
+			
+
+	def colorAnalysis(self):
+		self.densityDetectionSelect.grid(row=10, column=0, pady=5)
+	
+
+	def circular(self):
+		self.runVar1.set("color_segment")
+		self.runVar2.set("analyze_mask_block")
+		self.runVar3.set(None)
+		self.bufText.grid(row=11, column=0,pady=5)
+		self.bandSizeText.grid(row=12, column=0, pady=5)
+		self.abrasionXtext.grid(row=13, column=0, pady=5)
+		self.abrasionYtext.grid(row=14, column=0, pady=5)
+		self.abrasionRadiText.grid(row=15, column=0, pady=5)
+		self.bufferEntry.grid(row=11, column=1 , pady=5, sticky = W)
+		self.bandSizeEnt.grid(row=12, column=1, pady=5, sticky =W)
+		self.abrasionXspot.grid(row=13, column=1, pady=5, sticky = W)
+		self.abrasionYspot.grid(row=14, column=1,  pady=5, sticky = W)
+		self.abrasionRadius.grid(row=15, column=1, pady=5, sticky = W)
+		self.applyButton.grid(row=16, column=0, pady=5)
+		
+	def square(self):
+		self.runVar1.set(None)
+		self.runVar2.set(None)
+		self.runVar3.set("subtract")
+		self.bufText.grid(row=11, column=0,pady=5)
+		self.abrasionXtext.grid(row=12, column=0, pady=5)
+		self.abrasionYtext.grid(row=13, column=0, pady=5)
+		self.abrasionRadiText.grid(row=14, column=0, pady=5)
+		self.bufferEntry.grid(row=11, column=1 , pady=5, sticky = W)
+		self.abrasionXspot.grid(row=12, column=1, pady=5, sticky = W)
+		self.abrasionYspot.grid(row=13, column=1,  pady=5, sticky = W)
+		self.abrasionRadius.grid(row=14, column=1, pady=5, sticky = W)
+		self.applyButton.grid(row=15, column=0, pady=5)
+	
 	def sendConfig(self):
-		run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
-		configData = Config(run_list, self.basepath, self.file_names, self.rock_type.get())
+		self.run_list = [self.runVar1.get(), self.runVar2.get(), self.runVar3.get()]
+		configData = Config(self.run_list, self.basepath, self.file_names, self.rock_type, 
+							self.abrasionRadi.get(), self.abrasionX.get(), self.abrasionY.get(), 
+							self.bandSize.get(), self.bufferVal.get(), self.run_options)
 		self.controller = Control.from_config(configData)
 
 	# Run the current functions in the controller
@@ -215,22 +329,26 @@ class AnalysisWindow():
 		self.controller.run()
 
 	def rockEoptions(self):
-		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
-		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+		self.run_select.grid(row=9, column=0, padx=5, pady=5)
+
 
 
 	def rockBoptions(self):
-		self.colorSegButton.grid(row=7, column=0,padx=5,pady=5, sticky=W)
+		self.run_select.grid(row=9, column=0, padx=5, pady=5)
 
-	def allOptions(self):
-		self.imageSubButton.grid(row=6, column=0,padx=5,pady=5, sticky=W)
-		self.colorSegButton.grid(row=7,  column=0,padx=5,pady=5, sticky=W)
-		self.heatMapButton.grid(row=8, column=0,padx=5,pady=5, sticky=W)
+
 
 	#Save image set
 	def saveImage(self):
 		self.controller.save()
+		
+	def applyCircle(self):
+		image = self.basepath +'/'+ self.files_[0]
+		img = cv2.imread(image, 0)
+		imS = cv2.resize(img, (500, 250))
+		cv2.imshow('image', imS)
+		cv2.waitKey(0)
+		cv2.destroyAllWindows()
 
 	# File Browser
 	def browseFolder(self):
@@ -242,7 +360,7 @@ class AnalysisWindow():
 		new = AnalysisWindow(analysis, self.file_names, self.basepath)# pass file handle to new window
 	#==========================================
 
-		
+
     
 root = tkinter.Tk()
 index = Window(root)
