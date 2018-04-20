@@ -18,18 +18,12 @@ import sys									# System Variables
 
 class Config():
 
-	def __init__(self,run_list, basepath, files, rock_type, abrasion_radius, 
-				abrasionX, abrasionY, band_size, buffer, analysis_option):
+	def __init__(self,run_list, basepath, files, rock_type, arg_list):
 		self.run_list = run_list
 		self.basepath = basepath
 		self.files = files
 		self.rock_type = rock_type
-		self.analysis_option = analysis_option
-		self.abrasionX = abrasionX
-		self.abrasionY = abrasionY
-		self.abrasion_radius = abrasion_radius
-		self.band_size = band_size
-		self.buffer = buffer
+		self.arg_list = arg_list
 
 	def get_basepath(self):
 		return self.basepath
@@ -48,22 +42,6 @@ class Config():
 						  "Rock-E": "RockE"}
 
 		return rock_type_dict[self.rock_type]
-		
-	def get_analysis_option(self):
-		return self.analysis_option
-		
-	def get_abrasionX(self):
-		return self.abrasionX
-		
-	def get_abrasionY(self):
-		return self.abrasionY
-		
-	def get_abrasion_radius(self):
-		return self.abrasion_radius
-	
-	def get_band_size(self):
-		return self.band_size
-		
-	def get_buffer(self):
-		return self.buffer
-		
+
+	def get_arg_list(self):
+		return self.arg_list

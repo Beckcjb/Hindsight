@@ -57,7 +57,7 @@ class Image:
                                           radius = radius, angle_range = (0, 360));
         return 0
 
-    def analyze_mask_block(self, mask, buffer):
+    def analyze_mask_block(self, mask, buffer = 10, center = (1150, 1100), radius = 375):
         line = []
         analyzed_image = []
         x, y = self.xy_extent()
@@ -77,16 +77,14 @@ class Image:
                 analyzed_image= np.concatenate((analyzed_image, line), axis = 0)
             line = []
 
-        circular_mask = utils.sector_mask(analyzed_image.shape, (1150, 1150), 580, (0, 360))
+        circular_mask = utils.sector_mask(analyzed_image.shape, center, radius, (0, 360))
         analyzed_image = np.ma.array(analyzed_image, mask=np.invert(circular_mask))
 
         self.image_data['analyzed_image'] = analyzed_image
         self.image_data['percentages'] = utils.get_percentages(analyzed_image)
 
-    def analyze_mask_circlular(self, mask, buffer):
-        center = (1150, 1100)
-        radius = 375
-        buffer = 10
+    def analyze_mask_circlular(self, mask, buffer = 10, center = (1150, 1100), radius = 375, band_size = .7):
+        orig_radius = radius
         avg_pixel_val = (np.min(mask) + np.max(mask))/2
         analyzed_image = np.full(mask.shape, avg_pixel_val)
 
@@ -102,9 +100,9 @@ class Image:
                     if new_mask[i][j]:
                         analyzed_image[i:i+buffer, j:j+buffer] = mean
 
-            radius = radius * .7
+            radius = radius * band_size
 
-        circular_mask = utils.sector_mask(analyzed_image.shape, center, 375, (0, 360))
+        circular_mask = utils.sector_mask(analyzed_image.shape, center, orig_radius, (0, 360))
         analyzed_image = np.ma.array(analyzed_image, mask=np.invert(circular_mask))
 
         self.image_data['analyzed_image'] = analyzed_image
@@ -121,8 +119,11 @@ class Image:
 
         self.image_data['color_mask'] = np.invert(mask)
 
-    def ml_color_segment(self, image, eng):
-        mask, _ = eng.matlabColorSegment(image, nargout=2)
+    def ml_color_segment(self, image, rock_type, eng):
+        if rock_type == 'RockE':
+            mask, _ = eng.rockEMatlabColorSegment(image, nargout=2)
+        else:
+            raise KeyError('No color segmentation for rock type: {}'.format(rock_type))
 
         np_mask = np.array(mask._data.tolist())
         (x, y) = mask.size[1], mask.size[0]
