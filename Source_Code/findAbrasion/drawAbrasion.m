@@ -6,10 +6,10 @@ function abrasion = drawAbrasion(img_file, xcor, ycor, radius)
  xcor = xcor;
  ycor = ycor;
  radius = radius;
- 
+
 % Read the image and draw the circle in the image
 img = imread(img_file);
 ci = [xcor ycor radius]; % center and radius of circle ([c_row, c_col, r])
 abrasion = insertShape(img, 'Circle', ci, 'LineWidth', 10);
-imwrite(uint8(abrasion) 'myImage.jpeg');
+imwrite(uint8(abrasion), 'circleImage.jpeg');
 end
