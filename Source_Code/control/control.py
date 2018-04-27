@@ -25,7 +25,7 @@ class Control:
         self.func_list = func_list
         self.func_args = func_args
         self.rock_type = rock_type
-
+        self.basepath = basepath
         # Loads a list of images and their associated pairs
         for file in file_list:
             image_string = file[:11]
