@@ -84,6 +84,18 @@ class Control:
             plt.title('Analyzed')
             plt.axis('off')
             plt.tight_layout()
+            percentages1 = image["percentages"][2] #red
+            percentages2 = image["percentages"][1] #yellow
+            percentages3 = image["percentages"][0] #green
+            plt.annotate('G:' + str(percentages3), xy=(300, 125), xycoords='figure pixels',
+                        size=14, ha='right', va='top',
+                        bbox=dict(boxstyle='round', fc='w'))            
+            plt.annotate('Y:' + str(percentages2), xy=(300, 90), xycoords='figure pixels',
+                        size=14, ha='right', va='top',
+                        bbox=dict(boxstyle='round', fc='w'))           
+            plt.annotate('R:' + str(percentages1), xy=(300, 55), xycoords='figure pixels',
+                        size=14, ha='right', va='top',
+                        bbox=dict(boxstyle='round', fc='w'))  
             plt.subplot(1,2,2)
             plt.title('Original')
             plt.imshow(image["orig_image_data"], aspect="equal")
