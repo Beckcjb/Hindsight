@@ -9,7 +9,7 @@ def setup_package():
         version = VERSION,
         author = "Adam Paquette",
         author_email = "acp263@nau.edu",
-        description = ("I/O API to support planetary data formats."),
+        description = ("Application for detecting dust."),
         packages=find_packages(),
         zip_safe=False,
         install_requires=[
@@ -23,5 +23,7 @@ def setup_package():
 
 if __name__ == '__main__':
     setup_package()
-
-    os.system("cd /Applications/MATLAB_R2017b.app/extern/engines/python && python setup.py install")
+    
+    matlab_path = "/Applications/MATLAB_R2017b.app/extern/engines/python"
+    os.system("cd " + matlab_path + " \
+            && python setup.py install")
