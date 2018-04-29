@@ -83,24 +83,27 @@ class Image:
         self.image_data['analyzed_image'] = analyzed_image
         self.image_data['percentages'] = utils.get_percentages(analyzed_image)
 
-    def analyze_mask_circlular(self, mask, buffer = 10, center = (1150, 1100), radius = 375, band_size = .7):
+    def analyze_mask_circlular(self, mask, buffer = 10, center = (1150, 1100), radius = 375, band_size = 20):
         orig_radius = radius
         avg_pixel_val = (np.min(mask) + np.max(mask))/2
         analyzed_image = np.full(mask.shape, avg_pixel_val)
 
-        while(radius > 10):
-            circular_mask = utils.sector_mask(mask.shape, center, radius, (0, 360))
-            new_mask = np.ma.array(mask, mask=np.invert(circular_mask))
+        while(radius >= band_size ):
+            outer_ring_mask = utils.sector_mask(mask.shape, center, radius, (0, 360))
+            radius = radius - band_size
+            inner_ring_mask = np.invert(utils.sector_mask(mask.shape, center, radius, (0, 360)))
+
+            band_mask = np.ma.logical_and(outer_ring_mask, inner_ring_mask)
+            new_mask = np.ma.array(mask, mask=np.invert(band_mask))
 
             compressed_image = new_mask.compressed()
+
             mean = sum(compressed_image)/len(compressed_image)
 
             for i in range(0, len(mask), buffer):
                 for j in range(0, len(mask[i]), buffer):
                     if new_mask[i][j]:
                         analyzed_image[i:i+buffer, j:j+buffer] = mean
-
-            radius = radius * band_size
 
         circular_mask = utils.sector_mask(analyzed_image.shape, center, orig_radius, (0, 360))
         analyzed_image = np.ma.array(analyzed_image, mask=np.invert(circular_mask))

@@ -27,11 +27,11 @@ class Control:
         self.rock_type = rock_type
 
         # Loads a list of images and their associated pairs
-        for file in file_list:
-            image_string = file[:11]
-            if file[12:14] == 'af':
+        for after_image in file_list:
+            image_string = after_image[:11]
+            if after_image[12:14] == 'af':
                 before_image = image_string + "_abraded.jpg"
-                self.add_image_pair(before_image, file, basepath)
+                self.add_image_pair(before_image, after_image, basepath)
 
     @classmethod
     def from_config(cls, config):
@@ -66,7 +66,6 @@ class Control:
             elif func == "ml_color_segment":
                 self.apply_func(func, rock_type = self.rock_type, ml_eng = matlab.matlab_engine)
             elif func == "analyze_mask":
-                print(func)
                 self.apply_func(func, analysis_func = self.func_args[0],
                                       buffer = self.func_args[6],
                                       center = (self.func_args[4], self.func_args[3]),
@@ -89,13 +88,13 @@ class Control:
             percentages3 = image["percentages"][0] #green
             plt.annotate('G:' + str(percentages3), xy=(300, 125), xycoords='figure pixels',
                         size=14, ha='right', va='top',
-                        bbox=dict(boxstyle='round', fc='w'))            
+                        bbox=dict(boxstyle='round', fc='w'))
             plt.annotate('Y:' + str(percentages2), xy=(300, 90), xycoords='figure pixels',
                         size=14, ha='right', va='top',
-                        bbox=dict(boxstyle='round', fc='w'))           
+                        bbox=dict(boxstyle='round', fc='w'))
             plt.annotate('R:' + str(percentages1), xy=(300, 55), xycoords='figure pixels',
                         size=14, ha='right', va='top',
-                        bbox=dict(boxstyle='round', fc='w'))  
+                        bbox=dict(boxstyle='round', fc='w'))
             plt.subplot(1,2,2)
             plt.title('Original')
             plt.imshow(image["orig_image_data"], aspect="equal")
