@@ -1,5 +1,5 @@
 function [BW,maskedRGBImage] = dustELight(RGB)
-%createMask  Threshold RGB image using auto-generated code from colorThresholder app.
+%createMask Threshold RGB image using auto-generated code from colorThresholder app.
 %  [BW,MASKEDRGBIMAGE] = createMask(RGB) thresholds image RGB using
 %  auto-generated code from the colorThresholder app. The colorspace and
 %  range for each channel of the colorspace were set within the app. The

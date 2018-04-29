@@ -46,7 +46,7 @@ def sector_mask(shape, center, radius, angle_range):
 
 def get_percentages(mask):
     mean_array = mask.compressed()
-    
+
     maximum = mask.max()
     minimum = mask.min()
 

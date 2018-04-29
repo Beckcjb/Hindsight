@@ -111,7 +111,7 @@ class AnalysisWindow():
 		self.abrasionX = IntVar(value = 1110)
 		self.abrasionY = IntVar(value = 1135)
 		self.abrasionRadi = IntVar(value = 320)
-		self.bandSize = DoubleVar(value = 0.7)
+		self.bandSize = DoubleVar(value = 20)
 		self.controller = None
 		self.runVar1 = StringVar()
 		self.runVar2 = StringVar()
@@ -146,7 +146,7 @@ class AnalysisWindow():
 		self.abrasionXtext = 	Label(analysis, text="Move L/R:", bg = '#FCE5B3')
 		self.abrasionYtext = 	Label(analysis,  text="Move U/D:", bg = '#FCE5B3')
 		self.abrasionRadiText = Label(analysis, text="Change Radius:", bg = '#FCE5B3')
-		self.bandSizeText = 	Label(analysis, text="Band Size(0.01-0.99):", bg='#FCE5B3')
+		self.bandSizeText = 	Label(analysis, text="Band Size(10-100):", bg='#FCE5B3')
 
 		self.densityDetectionType = StringVar(analysis)
 
