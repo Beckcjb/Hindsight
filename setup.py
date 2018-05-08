@@ -7,8 +7,7 @@ def setup_package():
     setup(
         name = "Hindsight",
         version = VERSION,
-        author = "Adam Paquette",
-        author_email = "acp263@nau.edu",
+        author = "Adam Paquette , Hunter Rainen , Charles Beck, Alexanderia Nelson",
         description = ("Application for detecting dust."),
         packages=find_packages(),
         zip_safe=False,
