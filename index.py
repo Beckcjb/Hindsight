@@ -169,8 +169,7 @@ class AnalysisWindow():
 
 		self.rock_type.set("Rock-Type") # default value
 
-		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-Type", "Rock-B",
-															   "Rock-E", command=self.func)
+		self.rockSelect = OptionMenu(analysis, self.rock_type, "Rock-Type","Rock-E", command=self.func)
 		self.rockSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.rockSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
 		self.rockSelect.grid(row=3, column=2, pady=5)
@@ -205,10 +204,7 @@ class AnalysisWindow():
 		self.densityDetectionSelect.grid_forget()
 
 		self.rock_type = value
-		if self.rock_type == "Rock-B":
-			self.rockBoptions()
-
-		elif self.rock_type == "Rock-E":
+		if self.rock_type == "Rock-E":
 			self.rockEoptions()
 
 		else:
@@ -323,9 +319,6 @@ class AnalysisWindow():
 		self.controller.run()
 
 	def rockEoptions(self):
-		self.run_select.grid(row=9, column=0, padx=5, pady=5)
-
-	def rockBoptions(self):
 		self.run_select.grid(row=9, column=0, padx=5, pady=5)
 
 	#Save image set
