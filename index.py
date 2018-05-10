@@ -102,7 +102,7 @@ class AnalysisWindow():
 		self.basepath = basepath
 		self.analysis = analysis
 		analysis.title("Hindsight: Analysis")
-		analysis.geometry("650x650")
+		analysis.geometry("700x650")
 		analysis.wm_iconbitmap("logo.ico")
 		analysis.configure(background='#FCE5B3')
 
@@ -131,11 +131,14 @@ class AnalysisWindow():
 		runButton = 		Button(analysis,width=20,text="Run",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.run) # run image analysis
 
-		self.applyButton = 	Button(analysis,width=10,text="Apply",
+		self.applyButton = 	Button(analysis,width=10,text="View Changes",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command=self.applyCircle) # run image analysis
 
 		saveButton = 		Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.saveImage)# save results
+							
+		quitButton = 		Button(analysis,width=10,text="Exit",
+							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.quit)# save results
 
 		self.bufferEntry = 		Entry(analysis,	width=10, textvariable=self.bufferVal)
 		self.abrasionXspot = 	Entry(analysis, text="Moves L/R:", width=10, textvariable=self.abrasionX)
@@ -163,6 +166,7 @@ class AnalysisWindow():
 		sendButton.grid(row=2, column=0, pady=5)
 		runButton.grid(row=3, column=0, pady=5)
 		saveButton.grid(row=4, column=0,pady=5)
+		quitButton.grid(row=0, column=2, pady=5, padx=5, sticky = E)
 
 
 		self.rock_type = StringVar(analysis)
@@ -173,14 +177,13 @@ class AnalysisWindow():
 															   "Rock-E", command=self.func)
 		self.rockSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.rockSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
-		self.rockSelect.grid(row=3, column=2, pady=5)
+		self.rockSelect.grid(row=3, column=2, pady=5, padx=5)
 
 		self.run_options = StringVar()
 
 		self.run_options.set("Analysis Type") # default value
 
 		self.run_select = OptionMenu(self.analysis, self.run_options, "Analysis Type","Color Analysis",
-															   "Image Subtraction",
 															     command=self.runFunc)
 		self.run_select.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.run_select["menu"].configure(bg = "#881600", fg = '#ffffff')
@@ -352,6 +355,10 @@ class AnalysisWindow():
 		self.analysis.destroy()
 		analysis = tkinter.Toplevel(root)
 		new = AnalysisWindow(analysis, self.file_names, self.basepath)# pass file handle to new window
+		
+	# exit software
+	def quit(self):
+		self.analysis.quit()
 	#==========================================
 
 
