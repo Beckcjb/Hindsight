@@ -160,13 +160,6 @@ class AnalysisWindow():
 		self.densityDetectionSelect.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.densityDetectionSelect["menu"].configure(bg = "#881600", fg = '#ffffff')
 
-		blabel.grid(row=0, column=1, padx=5, pady=5)
-		fLabel.grid(row=1, column=1, rowspan = 5, padx=5, pady=5)
-		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
-		sendButton.grid(row=2, column=0, pady=5)
-		runButton.grid(row=3, column=0, pady=5)
-		saveButton.grid(row=4, column=0,pady=5)
-		quitButton.grid(row=0, column=2, pady=5, padx=5, sticky = E)
 
 
 		self.rock_type = StringVar(analysis)
@@ -187,7 +180,14 @@ class AnalysisWindow():
 															     command=self.runFunc)
 		self.run_select.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.run_select["menu"].configure(bg = "#881600", fg = '#ffffff')
-
+		
+		blabel.grid(row=0, column=1, padx=5, pady=5)
+		fLabel.grid(row=1, column=1, rowspan = 5, padx=5, pady=5)
+		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
+		sendButton.grid(row=2, column=0, pady=5)
+		runButton.grid(row=3, column=0, pady=5)
+		saveButton.grid(row=4, column=0,pady=5)
+		quitButton.grid(row=0, column=2, pady=5, padx=5, sticky = E)
 
 	#======================================
 	# Function to return rock_type
