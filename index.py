@@ -102,7 +102,7 @@ class AnalysisWindow():
 		self.basepath = basepath
 		self.analysis = analysis
 		analysis.title("Hindsight: Analysis")
-		analysis.geometry("700x650")
+		analysis.geometry("750x650")
 		analysis.wm_iconbitmap("logo.ico")
 		analysis.configure(background='#FCE5B3')
 
@@ -136,7 +136,7 @@ class AnalysisWindow():
 
 		saveButton = 		Button(analysis,width=20,text="Save Result",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.saveImage)# save results
-							
+
 		quitButton = 		Button(analysis,width=10,text="Exit",
 							fg = "#ffffff", bg="#881600", activebackground= "#EDB183", command = self.quit)# save results
 
@@ -180,7 +180,7 @@ class AnalysisWindow():
 															     command=self.runFunc)
 		self.run_select.configure(bg = "#881600", fg = '#ffffff', activebackground= "#881600")
 		self.run_select["menu"].configure(bg = "#881600", fg = '#ffffff')
-		
+
 		blabel.grid(row=0, column=1, padx=5, pady=5)
 		fLabel.grid(row=1, column=1, rowspan = 5, padx=5, pady=5)
 		changeFileButton.grid(row=0, column=0, padx=5, pady=5)
@@ -355,7 +355,7 @@ class AnalysisWindow():
 		self.analysis.destroy()
 		analysis = tkinter.Toplevel(root)
 		new = AnalysisWindow(analysis, self.file_names, self.basepath)# pass file handle to new window
-		
+
 	# exit software
 	def quit(self):
 		self.analysis.quit()
