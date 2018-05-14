@@ -17,7 +17,8 @@ def setup_package():
             'scipy',
             'numpy',
             'opencv-python',
-            'matplotlib'],
+            'matplotlib',
+            'pathlib'],
     )
 
 if __name__ == '__main__':
