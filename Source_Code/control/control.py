@@ -117,3 +117,24 @@ class Control:
             name = image.image_name[:11]
             after_number = image.image_name[12:18]
             plt.savefig(self.basepath + '/' + name + after_number + '_result.png', bbox_inches='tight')
+
+        datafile = Path(self.basepath+"/markedData.txt")
+        if datafile.is_file():
+            fileh = open(self.basepath + "/markedData.txt", "a+")
+            for i, image in enumerate(self.dataframe["after_image"]):
+                self.percentages1 = image["percentages"][2] #red
+                self.percentages2 = image["percentages"][1] #yellow
+                self.percentages3 = image["percentages"][0] #green
+                names = image.image_name[:11]
+                after_numbers = image.image_name[12:18]
+                fileh.write("\n"+ names + after_numbers + ": " + str(self.percentages3) + " , " + str(self.percentages2) + " , " + str(self.percentages1))
+        else:
+            fileh = open(self.basepath + "/markedData.txt", "w")
+            fileh.write("Abrasion Number:       Green ,    Yellow ,   Red  \n")
+            for i, image in enumerate(self.dataframe["after_image"]):
+                self.percentages1 = image["percentages"][2] #red
+                self.percentages2 = image["percentages"][1] #yellow
+                self.percentages3 = image["percentages"][0] #green
+                names = image.image_name[:11]
+                after_numbers = image.image_name[12:18]
+                fileh.write("\n"+ names + after_numbers + ": " + str(self.percentages3) + " , " + str(self.percentages2) + " , " + str(self.percentages1))
